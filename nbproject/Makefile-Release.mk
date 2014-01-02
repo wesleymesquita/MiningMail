@@ -36,6 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Mail.o \
+	${OBJECTDIR}/MailStorage.o \
+	${OBJECTDIR}/MailStorageTest.o \
 	${OBJECTDIR}/main.o
 
 # Test Directory
@@ -74,6 +76,16 @@ ${OBJECTDIR}/Mail.o: Mail.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail.o Mail.cpp
 
+${OBJECTDIR}/MailStorage.o: MailStorage.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage.o MailStorage.cpp
+
+${OBJECTDIR}/MailStorageTest.o: MailStorageTest.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -106,6 +118,32 @@ ${OBJECTDIR}/Mail_nomain.o: ${OBJECTDIR}/Mail.o Mail.cpp
 	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail_nomain.o Mail.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Mail.o ${OBJECTDIR}/Mail_nomain.o;\
+	fi
+
+${OBJECTDIR}/MailStorage_nomain.o: ${OBJECTDIR}/MailStorage.o MailStorage.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/MailStorage.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage_nomain.o MailStorage.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/MailStorage.o ${OBJECTDIR}/MailStorage_nomain.o;\
+	fi
+
+${OBJECTDIR}/MailStorageTest_nomain.o: ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/MailStorageTest.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest_nomain.o MailStorageTest.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/MailStorageTest.o ${OBJECTDIR}/MailStorageTest_nomain.o;\
 	fi
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 

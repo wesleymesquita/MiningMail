@@ -10,6 +10,10 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <itemPath>Mail.cpp</itemPath>
+      <itemPath>MailStorage.cpp</itemPath>
+      <itemPath>MailStorage.h</itemPath>
+      <itemPath>MailStorageTest.cpp</itemPath>
+      <itemPath>MailStorageTest.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -48,8 +52,19 @@
           <standard>8</standard>
           <incDir>
             <pElem>.</pElem>
+            <pElem>../../../../../libs/boost_1_55_0</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../../../../../libs/boost_1_55_0/stage/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>boost_filesystem-mgw48-mt-d-1_55</linkerLibLibItem>
+            <linkerLibLibItem>boost_system-mgw48-mt-1_55</linkerLibLibItem>
+            <linkerLibLibItem>boost_system-mgw48-mt-d-1_55</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1"
             ex="false"
@@ -59,6 +74,14 @@
       <item path="Mail.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Mail.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MailStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MailStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MailStorageTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MailStorageTest.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -108,6 +131,14 @@
       <item path="Mail.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Mail.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MailStorage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MailStorage.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MailStorageTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MailStorageTest.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>

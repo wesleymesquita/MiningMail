@@ -23,12 +23,12 @@
 
 class Mail {
 public:
-    Mail(const std::string& fileLoc);
-    const std::string& getFrom() const;
-    const std::vector<std::string>& getTo() const;
+    Mail(const std::string& fileLoc);    
+    const std::string& getFrom() const;    
+    const std::vector<std::string>& getTo() const;    
     const boost::gregorian::date& getDate() const;
     const std::string& getSubject() const;
-    const std::string& getMailData() const;
+    const std::string& getMailData() const;    
     const std::string& getMessageID() const;
     
 private:    
@@ -48,8 +48,18 @@ private:
     std::string xOrigin;
     std::string xFileName;
 
+    void setFrom(const std::string& from_str);
+    void setTo(const std::string& to_str);
+    void setDate(const std::string& date_str);
+    void setSubject(const std::string& subject_str);
+    void setMailData(const std::string& mailData_str);
+    void setMessageID(const std::string& messageID_str);
+
+    
     void loadMailRawdata(const std::string& fileLoc);
     void parseMailData();
+
+
 };
 
 #endif	/* ENRONMAIL_H */

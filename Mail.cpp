@@ -5,14 +5,24 @@ Mail::Mail(const std::string& fileLoc) {
     parseMailData();
 }
 
+// getters and setters
+
 const std::string& Mail::getFrom() const {
     return this->from;
+}
+
+void Mail::setFrom(const std::string& _from){    
+    this->from = _from;
 }
 
 const std::vector<std::string>& Mail::getTo() const {
     return this->to;
 }
 
+void Mail::setTo(const std::string& to_str){
+    
+}
+    
 const boost::gregorian::date& Mail::getDate() const {
     return this->date;
 }
@@ -21,12 +31,23 @@ const std::string& Mail::getSubject() const {
     return this->subject;
 }
 
+void Mail::setSubject(const std::string& subject_str){
+    
+}
+
+    
 const std::string& Mail::getMailData() const {
     return this->rawData;
 }
 
+void Mail::setMailData(const std::string& mailData_str){
+}
+
 const std::string& Mail::getMessageID() const {
     return this->messageID;
+}
+
+void setMessageID(const std::string& messageID_str){
 }
 
 void Mail::loadMailRawdata(const std::string& fileLoc) {

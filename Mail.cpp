@@ -27,6 +27,11 @@ const boost::gregorian::date& Mail::getDate() const {
     return this->date;
 }
 
+void Mail::setDate(const std::string& date_str){
+    
+}
+    
+
 const std::string& Mail::getSubject() const {
     return this->subject;
 }
@@ -47,7 +52,7 @@ const std::string& Mail::getMessageID() const {
     return this->messageID;
 }
 
-void setMessageID(const std::string& messageID_str){
+void Mail::setMessageID(const std::string& messageID_str){
 }
 
 void Mail::loadMailRawdata(const std::string& fileLoc) {
@@ -72,19 +77,19 @@ void Mail::parseMailData() {
 
         std::unordered_map < std::string, std::function< void(const std::string)> > emailFields = {
             {field_keys[0], [&](const std::string & str) {
-                    std::cout << field_keys[0] << "==" << str << std::endl;
+                    setMessageID(str);
                 }},
             {field_keys[1], [&](const std::string & str) {
-                    std::cout << field_keys[1] << "==" << str << std::endl;
+                    setDate(str);
                 }},
             {field_keys[2], [&](const std::string & str) {
-                    std::cout << field_keys[2] << "==" << str << std::endl;
+                    setFrom(str);
                 }},
             {field_keys[3], [&](const std::string & str) {
-                    std::cout << field_keys[3] << "==" << str << std::endl;
+                    setTo(str);
                 }},
             {field_keys[4], [&](const std::string & str) {
-                    std::cout << field_keys[4] << "==" << str << std::endl;
+                    setSubject(str);
                 }}
         };
 

@@ -14,7 +14,6 @@
  * Simple C++ Test Suite
  */
 
-void test_getRawMailData() {
     const char* original_mail = 
     R"(Message-ID: <16159836.1075855377439.JavaMail.evans@thyme>
 Date: Fri, 7 Dec 2001 10:06:42 -0800 (PST)
@@ -89,13 +88,12 @@ Let me know if you have any questions.
 
 Heather)";
 
+void test_getMailData() {
     Mail mail("1");
-    if(mail.getRawMailData() != original_mail ){
+    if(mail.getMailData() != original_mail ){
         std::cerr << "Failure test_getRawMailData";
         throw std::exception();
     }
-        
-
 }
 
 

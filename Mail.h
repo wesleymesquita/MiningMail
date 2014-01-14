@@ -14,6 +14,9 @@
 #include<algorithm>
 #include<iterator>
 
+#include<functional>
+#include<unordered_map>
+
 #include<boost/date_time/gregorian/gregorian.hpp>
 
 #include <exception>
@@ -26,9 +29,10 @@ public:
     const boost::gregorian::date& getDate() const;
     const std::string& getSubject() const;
     const std::string& getMailData() const;
-
-private:
-
+    const std::string& getMessageID() const;
+    
+private:    
+    std::string messageID;    
     std::string from;
     std::vector<std::string> to;
     boost::gregorian::date date;

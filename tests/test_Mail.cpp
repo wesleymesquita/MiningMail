@@ -1,21 +1,26 @@
 /* 
  * File:   test_Mail.cpp
- * Author: wesley
- *
+ * Author: Wesley Mesquita
+ * 
+ * Email: wesleymesquita@gmail.com
+ * 
  * Created on Dec 26, 2013, 9:59:32 PM
  */
 
 #include <stdlib.h>
 #include <iostream>
 #include <exception>
+#include <string>
+#include <vector>
+#include <algorithm>
 #include "Mail.h"
 
 /*
  * Simple C++ Test Suite
  */
 
-    const char* original_mail = 
-    R"(Message-ID: <16159836.1075855377439.JavaMail.evans@thyme>
+const char* original_mail =
+        R"(Message-ID: <16159836.1075855377439.JavaMail.evans@thyme>
 Date: Fri, 7 Dec 2001 10:06:42 -0800 (PST)
 From: heather.dunton@enron.com
 To: k..allen@enron.com
@@ -88,18 +93,65 @@ Let me know if you have any questions.
 
 Heather)";
 
-void test_getMailData() {
+bool test_getMailData() {
     Mail mail("1");
-    if(mail.getMailData() != original_mail ){
+    if (mail.getMailData() != original_mail) {
         std::cerr << "Failure test_getRawMailData";
-        throw std::exception();
+        return false;
     }
+    return true;
 }
 
+bool test_getFrom() {
+    Mail mail("1");
+    if(mail.getFrom().compare("heather.dunton@enron.com") != 0){
+        std::cerr << "Failure test_getFrom";
+        return false;
+    }        
+    return true;
+}
+
+bool test_getTo() {
+    Mail mail("1");
+    if(mail.getTo().size() <= 0){        
+        std::cerr << "Failure test_getTo";
+        return false;     
+    } 
+    else{
+        std::vector<std::string> expected = {"k..allen@enron.com"};
+        bool equal = std::equal(mail.getTo().begin(), 
+                mail.getTo().end(), 
+                expected.begin());
+        std::cerr << "Failure test_getTo";        
+        return equal;
+    }
+    return true;
+}
+
+bool test_getDate() {
+    Mail mail("1");
+    return false;
+}
+
+bool test_getSubject() {
+    Mail mail("1");
+    return false;
+}
+
+bool test_getMessageID() {
+    Mail mail("1");
+    //"<16159836.1075855377439.JavaMail.evans@thyme>"
+    return false;
+}
 
 int main(int argc, char** argv) {
-    
-    test_getRawMailData();
+
+    test_getMailData();
+    test_getFrom();
+    test_getTo();
+    test_getDate();
+    test_getSubject();
+    test_getMessageID();
     return (EXIT_SUCCESS);
 }
 

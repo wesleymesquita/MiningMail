@@ -4,11 +4,12 @@
 #include "Mail.h"
 #include "MailStorageTest.h"
 
+#include "test_mail.h"
+
 int main(int argc, char** argv) {
     
-    Mail mail(R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir\allen-p\inbox\1)");
-
-    //MailStorageTest::test();
-
+    bool test_Mail_res = test_mining_mail::test_Mail::test();
+    std::cout << "Mail_tests == " << test_Mail_res << std::endl; 
+    return 0;
 }
 

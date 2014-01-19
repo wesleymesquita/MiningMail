@@ -1,4 +1,5 @@
 #include "Mail.h"
+#include "Logger.h"
 
 Mail::Mail(const std::string& fileLoc) {
     loadMailRawdata(fileLoc);
@@ -53,13 +54,17 @@ const std::string& Mail::getMessageID() const {
 }
 
 void Mail::setMessageID(const std::string& messageID_str){
+    this->messageID = messageID_str;
 }
 
 void Mail::loadMailRawdata(const std::string& fileLoc) {
-    std::ofstream mailFile(fileLoc, std::ios::in);
-
-    if (!mailFile.is_open()) {
-        throw std::exception();
+    
+    std::ifstream mailFile;
+    mailFile.open(fileLoc, std::ifstream::in);
+    if (!mailFile.is_open() ) {
+        std::stringstream sstr;
+        sstr << "Error to open file " << fileLoc << std::endl; 
+        Logger::log(sstr.str().c_str());
     } else {
         if (mailFile.good()) {
             std::stringstream s;
@@ -97,13 +102,17 @@ void Mail::parseMailData() {
         for (const std::string& field : field_keys) {
 
             pos_field = rawData.find(field);
-            if (pos_field != std::string::npos) {
+            if (pos_field == std::string::npos) {
+                std::stringstream sstr;
+                sstr << "Could not find field " << field;
+                Logger::log(sstr.str().c_str());
                 throw std::exception();
             } else {
-                size_t pos_end_field_value = rawData.find("\n", pos_field + field.size() + 1);
+                // '+2' to jump a colon and a space after fields name
+                size_t pos_end_field_value = rawData.find("\n", pos_field + field.size() + 2);
                     
                 emailFields[field](std::string(
-                        rawData.begin() + pos_field + field.size() + 1,
+                        rawData.begin() + pos_field + field.size() + 2,
                         rawData.begin() + pos_end_field_value));
             }
         }

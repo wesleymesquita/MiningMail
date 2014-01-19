@@ -17,7 +17,7 @@
 #include <functional>
 
 #include "Mail.h"
-
+#include "Logger.h"
 
 namespace test_mining_mail {
 
@@ -95,11 +95,13 @@ Let me know if you have any questions.
 
 Heather)";
 
+const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir\allen-p\inbox\1)";    
+    
     class test_Mail {
     private:
 
-        bool test_getMailData() {
-            Mail mail("1");
+      bool test_getMailData() {
+            Mail mail(original_data_test_Mail_file);
             if (mail.getMailData() != original_data_test_Mail) {
                 std::cerr << "Failure test_getRawMailData";
                 return false;
@@ -108,7 +110,7 @@ Heather)";
         }
 
         bool test_getFrom() {
-            Mail mail("1");
+            Mail mail(original_data_test_Mail_file);
             if (mail.getFrom().compare("heather.dunton@enron.com") != 0) {
                 std::cerr << "Failure test_getFrom";
                 return false;
@@ -117,7 +119,7 @@ Heather)";
         }
 
         bool test_getTo() {
-            Mail mail("1");
+            Mail mail(original_data_test_Mail_file);
             if (mail.getTo().size() <= 0) {
                 std::cerr << "Failure test_getTo";
                 return false;
@@ -133,19 +135,24 @@ Heather)";
         }
 
         bool test_getDate() {
-            Mail mail("1");
+            Mail mail(original_data_test_Mail_file);
             return false;
         }
 
         bool test_getSubject() {
-            Mail mail("1");
+            Mail mail(original_data_test_Mail_file);
             return false;
         }
 
         bool test_getMessageID() {
-            Mail mail("1");
-            //"<16159836.1075855377439.JavaMail.evans@thyme>"
-            return false;
+            Mail mail(original_data_test_Mail_file);
+            const std::string expected_message_id = 
+                "<16159836.1075855377439.JavaMail.evans@thyme>";
+            if( mail.getMessageID().compare(expected_message_id) != 0 ){
+              Logger::log("Error Mail::getMessageID failed ");  
+              return false;
+            }
+            return true;
         }
     public:
 
@@ -153,7 +160,8 @@ Heather)";
             test_Mail tester;
             
             std::vector< std::function<bool()> > test_functions  = 
-            { { [&]()->bool{return false; /*tester.test_getMessageID();*/} },
+            { { [&]()->bool{return tester.test_getMessageID();} },
+              { [&]()->bool{return false; /*tester.test_getMessageID();*/} },
               { [&]()->bool{return false; /*tester.test_getFrom();*/} }, 
               { [&]()->bool{return false; /*tester.test_getTo();*/} },
               { [&]()->bool{return false; /*tester.test_getDate();*/} },

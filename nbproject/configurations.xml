@@ -13,6 +13,8 @@
         <itemPath>../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1</itemPath>
         <itemPath>test_Mail.h</itemPath>
       </logicalFolder>
+      <itemPath>Logger.cpp</itemPath>
+      <itemPath>Logger.h</itemPath>
       <itemPath>Mail.cpp</itemPath>
       <itemPath>MailStorage.cpp</itemPath>
       <itemPath>MailStorage.h</itemPath>
@@ -74,6 +76,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Logger.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Mail.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Mail.h" ex="false" tool="3" flavor2="0">
@@ -132,6 +138,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Logger.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Mail.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Logger.o \
 	${OBJECTDIR}/Mail.o \
 	${OBJECTDIR}/MailStorage.o \
 	${OBJECTDIR}/MailStorageTest.o \
@@ -71,6 +72,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/Logger.o: Logger.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger.o Logger.cpp
+
 ${OBJECTDIR}/Mail.o: Mail.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -106,6 +112,19 @@ ${TESTDIR}/tests/test_Mail.o: tests/test_Mail.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/test_Mail.o tests/test_Mail.cpp
 
+
+${OBJECTDIR}/Logger_nomain.o: ${OBJECTDIR}/Logger.o Logger.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Logger.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger_nomain.o Logger.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/Logger.o ${OBJECTDIR}/Logger_nomain.o;\
+	fi
 
 ${OBJECTDIR}/Mail_nomain.o: ${OBJECTDIR}/Mail.o Mail.cpp 
 	${MKDIR} -p ${OBJECTDIR}

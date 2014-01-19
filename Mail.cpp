@@ -6,6 +6,10 @@ Mail::Mail(const std::string& fileLoc) {
     parseMailData();
 }
 
+Mail::~Mail(){
+    
+}
+
 // getters and setters
 
 const std::string& Mail::getFrom() const {
@@ -64,7 +68,7 @@ void Mail::loadMailRawdata(const std::string& fileLoc) {
     if (!mailFile.is_open() ) {
         std::stringstream sstr;
         sstr << "Error to open file " << fileLoc << std::endl; 
-        Logger::log(sstr.str().c_str());
+        Logger::log("Mail", sstr.str().c_str());
     } else {
         if (mailFile.good()) {
             std::stringstream s;
@@ -105,7 +109,7 @@ void Mail::parseMailData() {
             if (pos_field == std::string::npos) {
                 std::stringstream sstr;
                 sstr << "Could not find field " << field;
-                Logger::log(sstr.str().c_str());
+                Logger::log("Mail", sstr.str().c_str());
                 throw std::exception();
             } else {
                 // '+2' to jump a colon and a space after fields name

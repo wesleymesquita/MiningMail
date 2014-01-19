@@ -1,6 +1,6 @@
 /* 
  * File:   test_Mail.h
- * Author: wesley
+ * Author: Wesley Mesquita
  *
  * Created on 15 de Janeiro de 2014, 20:48
  */
@@ -95,12 +95,12 @@ Let me know if you have any questions.
 
 Heather)";
 
-const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir\allen-p\inbox\1)";    
-    
+    const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir\allen-p\inbox\1)";
+
     class test_Mail {
     private:
 
-      bool test_getMailData() {
+        bool test_getMailData() {
             Mail mail(original_data_test_Mail_file);
             if (mail.getMailData() != original_data_test_Mail) {
                 std::cerr << "Failure test_getRawMailData";
@@ -146,11 +146,11 @@ const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_ma
 
         bool test_getMessageID() {
             Mail mail(original_data_test_Mail_file);
-            const std::string expected_message_id = 
-                "<16159836.1075855377439.JavaMail.evans@thyme>";
-            if( mail.getMessageID().compare(expected_message_id) != 0 ){
-              Logger::log("Error Mail::getMessageID failed ");  
-              return false;
+            const std::string expected_message_id =
+                    "<16159836.1075855377439.JavaMail.evans@thyme>";
+            if (mail.getMessageID().compare(expected_message_id) != 0) {
+                Logger::log("test_Mail", "Error Mail::getMessageID failed");
+                return false;
             }
             return true;
         }
@@ -158,27 +158,35 @@ const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_ma
 
         static int test() {
             test_Mail tester;
-            
-            std::vector< std::function<bool()> > test_functions  = 
-            { { [&]()->bool{return tester.test_getMessageID();} },
-              { [&]()->bool{return false; /*tester.test_getMessageID();*/} },
-              { [&]()->bool{return false; /*tester.test_getFrom();*/} }, 
-              { [&]()->bool{return false; /*tester.test_getTo();*/} },
-              { [&]()->bool{return false; /*tester.test_getDate();*/} },
-              { [&]()->bool{return false; /*tester.test_getSubject();*/} },
-              { [&]()->bool{return false; /*tester.test_getMessageID();*/} }         
-            };           
-        
-            std::vector<bool> result; 
+
+            std::vector < std::function<bool()> > test_functions ={
+                { [&]()->bool {
+                                                                      return tester.test_getMessageID();
+                                                                  }},
+                { [&]()->bool {
+                        return tester.test_getFrom();
+                    }},
+                { [&]()->bool {
+                        return tester.test_getTo();
+                    }},
+                { [&]()->bool {
+                        return tester.test_getDate();
+                    }},
+                { [&]()->bool {
+                        return tester.test_getSubject();
+                    }}
+            };
+
+            std::vector<bool> result;
             result.reserve(test_functions.size());
-            
-            std::vector<bool> expected_result(test_functions.size(), true); 
-            
-            for(auto f : test_functions){
+
+            std::vector<bool> expected_result(test_functions.size(), true);
+
+            for (auto f : test_functions) {
                 result.push_back(f());
             }
-          
-            return std::equal(result.begin(),result.end(), expected_result.begin());
+
+            return std::equal(result.begin(), result.end(), expected_result.begin());
         }
     };
 }

@@ -20,6 +20,8 @@
       <itemPath>MailStorage.h</itemPath>
       <itemPath>MailStorageTest.cpp</itemPath>
       <itemPath>MailStorageTest.h</itemPath>
+      <itemPath>Tester.cpp</itemPath>
+      <itemPath>Tester.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -92,6 +94,10 @@
       </item>
       <item path="MailStorageTest.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Tester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Tester.h" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -154,6 +160,10 @@
       <item path="MailStorageTest.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MailStorageTest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Tester.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>

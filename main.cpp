@@ -11,11 +11,11 @@
 int main(int argc, char** argv) {
     
     
-    Logger::initLogger(R"(c:\tmp\log.tmp)");
-    Logger::log("Init basic parse test: ");
+    Logger::initLogger("Mail", R"(c:\tmp\mail.log)");
+    Logger::log("Mail", "Init basic parse test: ");
     bool test_Mail_res = test_mining_mail::test_Mail::test();
     std::cout << "Mail_tests == " << test_Mail_res << std::endl; 
-    Logger::finalizeLogger();
+    Logger::finalizeLogger("Mail");
     return 0;
 }
 

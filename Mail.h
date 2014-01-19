@@ -24,6 +24,7 @@
 class Mail {
 public:
     Mail(const std::string& fileLoc);    
+    virtual ~Mail();
     const std::string& getFrom() const;    
     const std::vector<std::string>& getTo() const;    
     const boost::gregorian::date& getDate() const;

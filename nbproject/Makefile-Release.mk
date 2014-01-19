@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Mail.o \
 	${OBJECTDIR}/MailStorage.o \
 	${OBJECTDIR}/MailStorageTest.o \
+	${OBJECTDIR}/Tester.o \
 	${OBJECTDIR}/main.o
 
 # Test Directory
@@ -91,6 +92,11 @@ ${OBJECTDIR}/MailStorageTest.o: MailStorageTest.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp
+
+${OBJECTDIR}/Tester.o: Tester.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester.o Tester.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -163,6 +169,19 @@ ${OBJECTDIR}/MailStorageTest_nomain.o: ${OBJECTDIR}/MailStorageTest.o MailStorag
 	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest_nomain.o MailStorageTest.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/MailStorageTest.o ${OBJECTDIR}/MailStorageTest_nomain.o;\
+	fi
+
+${OBJECTDIR}/Tester_nomain.o: ${OBJECTDIR}/Tester.o Tester.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/Tester.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester_nomain.o Tester.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/Tester.o ${OBJECTDIR}/Tester_nomain.o;\
 	fi
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 

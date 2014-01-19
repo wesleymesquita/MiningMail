@@ -1,16 +1,18 @@
-
 #include "Logger.h"
 
+Logger* Logger::instance = nullptr;
+
 void Logger::log(const char* message){
-    instance->logStream << "[Mining Mail]" << message << std::endl;
-    instance->logStream.
+    std::stringstream sstr;
+    sstr << "[Mining Mail]" << message << std::endl;
+    instance->logStream.write(sstr.str().c_str(), 512) ;
 }    
 
 void Logger::initLogger(const char* fileLoc){
     instance = new Logger();     
-    instance->logStream.open(fileLoc, std::fstream::app);
+    instance->logStream.open(fileLoc, std::fstream::out | std::fstream::app);
     if( !instance->logStream.good() ){
-        instance->logStream.open("log.tmp", std::fstream::app);            
+        instance->logStream.open("log.tmp", std::fstream::out | std::fstream::app);            
     }
 }    
 

@@ -9,18 +9,20 @@
 #define	LOGGER_H
 #include<string>
 #include<fstream>
+#include<sstream>
 
 class Logger{
 public:
     static void log(const char* message);    
     static void initLogger(const char* fileLoc);
-    static void finalizeLogger(const char* fileLoc);    
+    static void finalizeLogger();    
+   
 private:
     static Logger *instance;
         
     Logger();
     std::string logFileLoc;
-    std::ifstream logStream;    
+    std::fstream logStream;    
 };
 
 

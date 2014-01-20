@@ -4,7 +4,6 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
-      <itemPath>Mail.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Arquivos de Código-Fonte"
@@ -16,6 +15,7 @@
       <itemPath>Logger.cpp</itemPath>
       <itemPath>Logger.h</itemPath>
       <itemPath>Mail.cpp</itemPath>
+      <itemPath>Mail.h</itemPath>
       <itemPath>MailStorage.cpp</itemPath>
       <itemPath>MailStorage.h</itemPath>
       <itemPath>MailStorageTest.cpp</itemPath>
@@ -70,6 +70,8 @@
             <linkerLibLibItem>boost_filesystem-mgw48-mt-d-1_55</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mgw48-mt-1_55</linkerLibLibItem>
             <linkerLibLibItem>boost_system-mgw48-mt-d-1_55</linkerLibLibItem>
+            <linkerLibFileItem>../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-1_55.a</linkerLibFileItem>
+            <linkerLibFileItem>../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-d-1_55.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

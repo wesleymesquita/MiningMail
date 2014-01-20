@@ -17,9 +17,11 @@
 #include<functional>
 #include<unordered_map>
 
-#include<boost/date_time/gregorian/gregorian.hpp>
+#include<boost/date_time/posix_time/posix_time.hpp>
 
 #include <exception>
+
+namespace bpt = boost::posix_time;
 
 class Mail {
 public:
@@ -27,7 +29,7 @@ public:
     virtual ~Mail();
     const std::string& getFrom() const;    
     const std::vector<std::string>& getTo() const;    
-    const boost::gregorian::date& getDate() const;
+    const bpt::ptime& getDate() const;
     const std::string& getSubject() const;
     const std::string& getMailData() const;    
     const std::string& getMessageID() const;
@@ -36,7 +38,7 @@ private:
     std::string messageID;    
     std::string from;
     std::vector<std::string> to;
-    boost::gregorian::date date;
+    bpt::ptime date;
     std::string subject;
     std::string rawData;
 

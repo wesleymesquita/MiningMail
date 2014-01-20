@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <functional>
 
+#include<boost/date_time/posix_time/posix_time.hpp>
+
 #include "Mail.h"
 #include "Logger.h"
 
@@ -104,7 +106,7 @@ Heather)";
             Mail mail(original_data_test_Mail_file);
             if (mail.getMailData().compare(original_data_test_Mail) != 0) {
                 Logger::log("test_Mail", "Error Mail::getSubject failed");
-                return false;                
+                return false;
             }
             return true;
         }
@@ -136,7 +138,15 @@ Heather)";
 
         bool test_getDate() {
             Mail mail(original_data_test_Mail_file);
-            return false;
+            // Fri, 7 Dec 2001 10:06:42 -0800 (PST)
+            boost::posix_time::ptime expected_date;
+            const std::string date_str("2001-12-7 10:06:42");
+            expected_date = boost::posix_time::time_from_string(date_str);
+            if (expected_date != mail.getDate()) {
+                std::cerr << "Failure test_getDate";
+                return false;
+            }
+            return true;
         }
 
         bool test_getSubject() {
@@ -164,10 +174,10 @@ Heather)";
         static int test() {
             test_Mail tester;
 
-            std::vector < std::function<bool()> > test_functions ={
+            std::vector < std::function<bool()> > test_functions = {
                 { [&]()->bool {
-                                                                      return tester.test_getMessageID();
-                                                                  }},
+                        return tester.test_getMessageID();
+                    }},
                 { [&]()->bool {
                         return tester.test_getFrom();
                     }},

@@ -9,7 +9,12 @@
         <group>
             <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/main.cpp</file>
             <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Mail.cpp</file>
+            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Mail.h</file>
+            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Logger.h</file>
+            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Tester.cpp</file>
+            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Logger.cpp</file>
             <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/test_Mail.h</file>
+            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Tester.h</file>
         </group>
     </open-files>
 </project-private>

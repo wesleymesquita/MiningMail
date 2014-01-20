@@ -63,11 +63,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../../../../libs/boost_1_55_0/stage/lib -lboost_filesystem-mgw48-mt-d-1_55 -lboost_system-mgw48-mt-1_55 -lboost_system-mgw48-mt-d-1_55
+LDLIBSOPTIONS=-L../../../../../libs/boost_1_55_0/stage/lib -lboost_filesystem-mgw48-mt-d-1_55 -lboost_system-mgw48-mt-1_55 -lboost_system-mgw48-mt-d-1_55 ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-1_55.a ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-d-1_55.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-1_55.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-d-1_55.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

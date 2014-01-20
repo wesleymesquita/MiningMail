@@ -25,15 +25,34 @@ const std::vector<std::string>& Mail::getTo() const {
 }
 
 void Mail::setTo(const std::string& to_str){
-    
+   //this->to = to_str; 
 }
     
-const boost::gregorian::date& Mail::getDate() const {
+const bpt::ptime& Mail::getDate() const {
     return this->date;
 }
 
-void Mail::setDate(const std::string& date_str){
+void Mail::setDate(const std::string& date_str) {
+    std::unordered_map<std::string, std::string> date_parsed_data;
+
+    date_parsed_data["week_day"] = date_str.substr(0, 3);
+    date_parsed_data["month_day"] = date_str.substr(5, 1);
+    date_parsed_data["month"] = date_str.substr(7, 3);
+    date_parsed_data["year"] = date_str.substr(10, 5);
+    date_parsed_data["hour"] = date_str.substr(16, 2);
+    date_parsed_data["minute"] = date_str.substr(19, 2);
+    date_parsed_data["second"] = date_str.substr(22, 2);
+    date_parsed_data["time_zone"] = date_str.substr(24, 6);
     
+    std::stringstream sstr;
+    sstr << date_parsed_data["year"] << "-" 
+            << date_parsed_data["month"] << "-"
+            << date_parsed_data["day"] << " "
+            << date_parsed_data["hour"] << ":"
+            << date_parsed_data["minute"] << ":"
+            << date_parsed_data["second"];
+
+    date = bpt::ptime(bpt::time_from_string(sstr.str()));
 }
     
 
@@ -42,7 +61,7 @@ const std::string& Mail::getSubject() const {
 }
 
 void Mail::setSubject(const std::string& subject_str){
-    
+    this->subject = subject_str;
 }
 
     
@@ -51,6 +70,7 @@ const std::string& Mail::getMailData() const {
 }
 
 void Mail::setMailData(const std::string& mailData_str){
+    this->rawData = mailData_str;
 }
 
 const std::string& Mail::getMessageID() const {

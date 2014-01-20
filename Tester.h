@@ -9,13 +9,16 @@
 #define	TESTER_H
 
 #include<string>
-#include
+#include "Logger.h"
 
 class Tester{
 public:
+    Tester(const char* className);
+    void assertStrings(const char* expected, const char* result);
 private:    
     std::string className;
-    std::
+    const char* FAILED = "FAILED";
+        
 };
 
 #endif	/* TESTER_H */

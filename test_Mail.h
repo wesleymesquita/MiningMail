@@ -102,9 +102,9 @@ Heather)";
 
         bool test_getMailData() {
             Mail mail(original_data_test_Mail_file);
-            if (mail.getMailData() != original_data_test_Mail) {
-                std::cerr << "Failure test_getRawMailData";
-                return false;
+            if (mail.getMailData().compare(original_data_test_Mail) != 0) {
+                Logger::log("test_Mail", "Error Mail::getSubject failed");
+                return false;                
             }
             return true;
         }
@@ -141,7 +141,12 @@ Heather)";
 
         bool test_getSubject() {
             Mail mail(original_data_test_Mail_file);
-            return false;
+            const std::string expected_subject = "RE: West Position";
+            if (mail.getSubject().compare(expected_subject) != 0) {
+                Logger::log("test_Mail", "Error Mail::getSubject failed");
+                return false;
+            }
+            return true;
         }
 
         bool test_getMessageID() {

@@ -30,7 +30,7 @@ void Logger::initLogger(const char* instance_name,
             instances[instance_name]->logFileLoc.c_str(),
             std::fstream::out | std::fstream::app);
 
-    if (!instances[instance_name]->logStream.good()) {
+    if (!instances[instance_name]->logStream.good()) {       
         throw std::exception();
     }
 }

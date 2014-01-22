@@ -101,9 +101,11 @@ Heather)";
 
     class test_Mail {
     private:
-
+        const Mail mail;
+        
+        
+        
         bool test_getMailData() {
-            Mail mail(original_data_test_Mail_file);
             if (mail.getMailData().compare(original_data_test_Mail) != 0) {
                 Logger::log("test_Mail", "Error Mail::getSubject failed");
                 return false;
@@ -112,7 +114,6 @@ Heather)";
         }
 
         bool test_getFrom() {
-            Mail mail(original_data_test_Mail_file);
             if (mail.getFrom().compare("heather.dunton@enron.com") != 0) {
                 std::cerr << "Failure test_getFrom";
                 return false;
@@ -121,7 +122,6 @@ Heather)";
         }
 
         bool test_getTo() {
-            Mail mail(original_data_test_Mail_file);
             if (mail.getTo().size() <= 0) {
                 std::cerr << "Failure test_getTo";
                 return false;
@@ -133,11 +133,9 @@ Heather)";
                 std::cerr << "Failure test_getTo";
                 return equal;
             }
-            return true;
         }
 
         bool test_getDate() {
-            Mail mail(original_data_test_Mail_file);
             // Fri, 7 Dec 2001 10:06:42 -0800 (PST)
             boost::posix_time::ptime expected_date;
             const std::string date_str("2001-12-7 10:06:42");
@@ -150,7 +148,6 @@ Heather)";
         }
 
         bool test_getSubject() {
-            Mail mail(original_data_test_Mail_file);
             const std::string expected_subject = "RE: West Position";
             if (mail.getSubject().compare(expected_subject) != 0) {
                 Logger::log("test_Mail", "Error Mail::getSubject failed");
@@ -160,7 +157,6 @@ Heather)";
         }
 
         bool test_getMessageID() {
-            Mail mail(original_data_test_Mail_file);
             const std::string expected_message_id =
                     "<16159836.1075855377439.JavaMail.evans@thyme>";
             if (mail.getMessageID().compare(expected_message_id) != 0) {
@@ -170,7 +166,10 @@ Heather)";
             return true;
         }
     public:
-
+        test_Mail():
+            mail(original_data_test_Mail_file){           
+        }    
+        
         static int test() {
             test_Mail tester;
 

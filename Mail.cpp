@@ -25,7 +25,23 @@ const std::vector<std::string>& Mail::getTo() const {
 }
 
 void Mail::setTo(const std::string& to_str) {
-    //this->to = to_str; 
+    std::vector<std::string> res;
+    size_t pos_begin = 0;
+    
+    size_t pos_end = to_str.find(',', pos_begin);
+    if(pos_end == std::string::npos){
+       res.push_back(to_str); 
+    }
+    else{
+        while(pos_end != std::string::npos){
+            std::string tmp = to_str.substr(pos_begin, pos_end);
+            res.push_back(std::move(tmp));
+            pos_begin = pos_end + 1;
+            pos_end = to_str.find(',', pos_begin); 
+        }        
+    }
+    
+    this->to = std::move(res); 
 }
 
 const bpt::ptime& Mail::getDate() const {

@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/MailStorage.o \
 	${OBJECTDIR}/MailStorageTest.o \
 	${OBJECTDIR}/Tester.o \
+	${OBJECTDIR}/UserMailDataset.o \
 	${OBJECTDIR}/main.o
 
 # Test Directory
@@ -101,6 +102,11 @@ ${OBJECTDIR}/Tester.o: Tester.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester.o Tester.cpp
+
+${OBJECTDIR}/UserMailDataset.o: UserMailDataset.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset.o UserMailDataset.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -186,6 +192,19 @@ ${OBJECTDIR}/Tester_nomain.o: ${OBJECTDIR}/Tester.o Tester.cpp
 	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester_nomain.o Tester.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Tester.o ${OBJECTDIR}/Tester_nomain.o;\
+	fi
+
+${OBJECTDIR}/UserMailDataset_nomain.o: ${OBJECTDIR}/UserMailDataset.o UserMailDataset.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/UserMailDataset.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset_nomain.o UserMailDataset.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/UserMailDataset.o ${OBJECTDIR}/UserMailDataset_nomain.o;\
 	fi
 
 ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp 

@@ -11,6 +11,9 @@
 #include<fstream>
 #include<sstream>
 #include<unordered_map>
+#include<boost/date_time/posix_time/posix_time.hpp>
+
+namespace bpt = boost::posix_time;
 
 class Logger{
 public:
@@ -20,9 +23,14 @@ public:
 private:
     static std::unordered_map<std::string, Logger*> instances;
     static const std::string BASE_DIR;     
+    
     Logger();
     std::string logFileLoc;
     std::fstream logStream;    
+    bpt::ptime timestamp;
+    
+    void updateTimeStamp();
+
 };
 
 

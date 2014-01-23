@@ -8,14 +8,17 @@ void Logger::log(const char* instance_name, const char* message) {
         initLogger(instance_name);
     }
 
-    std::stringstream sstr;
-    sstr << "[Mining Mail]" << message << std::endl;
-    instances[instance_name]->logStream.write(sstr.str().c_str(), sstr.str().size());
+    std::stringstream sstr("");
+    sstr << "[" << instance_name << ":"
+            << bpt::to_simple_string(bpt::second_clock::local_time()) << "] "
+            << message
+            << std::endl;
+    instances[instance_name]->logStream.write(
+            sstr.str().c_str(), sstr.str().size());
 }
 
 void Logger::initLogger(const char* instance_name,
         const char* fileLoc) {
-
 
     instances[instance_name] = new Logger();
 
@@ -30,7 +33,7 @@ void Logger::initLogger(const char* instance_name,
             instances[instance_name]->logFileLoc.c_str(),
             std::fstream::out | std::fstream::app);
 
-    if (!instances[instance_name]->logStream.good()) {       
+    if (!instances[instance_name]->logStream.good()) {
         throw std::exception();
     }
 }
@@ -43,5 +46,10 @@ void Logger::finalizeLogger(const char* instance_name) {
 Logger::Logger() {
     // Forces singleton     
 }
+
+void Logger::updateTimeStamp() {
+    timestamp = bpt::second_clock::local_time();
+}
+
 
 

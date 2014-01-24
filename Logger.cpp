@@ -13,6 +13,7 @@ void Logger::log(const char* function_name,
     }
 
     bptree::ptree pt;
+    pt.put("datetime", bpt::to_simple_string(bpt::second_clock::local_time()).c_str());
     pt.put("function_name", function_name);
     pt.put("line", line);
     pt.put("log_instance_name", log_instance_name);

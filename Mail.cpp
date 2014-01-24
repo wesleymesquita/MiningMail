@@ -1,5 +1,6 @@
 #include "Mail.h"
 #include "Logger.h"
+#include <boost/current_function.hpp>
 
 Mail::Mail(const std::string& fileLoc) {
     loadMailRawdata(fileLoc);
@@ -120,7 +121,7 @@ void Mail::loadMailRawdata(const std::string& fileLoc) {
     if (!mailFile.is_open()) {
         std::stringstream sstr;
         sstr << "Error to open file " << fileLoc << std::endl;
-        Logger::log("Mail", sstr.str().c_str());
+        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "Mail", sstr.str().c_str());
     } else {
         if (mailFile.good()) {
             std::stringstream s;
@@ -161,7 +162,7 @@ void Mail::parseMailData() {
             if (pos_field == std::string::npos) {
                 std::stringstream sstr;
                 sstr << "Could not find field " << field;
-                Logger::log("Mail", sstr.str().c_str());
+                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "Mail", sstr.str().c_str());
                 throw std::exception();
             } else {
                 // '+2' to jump a colon and a space after fields name
@@ -175,7 +176,7 @@ void Mail::parseMailData() {
     } else {
         std::stringstream sstr;
         sstr << "Error Mail::parseMailData()";
-        Logger::log("Mail", sstr.str().c_str());
+        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "Mail", sstr.str().c_str());
         throw std::exception();
     }
 }

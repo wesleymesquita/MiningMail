@@ -9,16 +9,19 @@
 #define	TESTER_H
 
 #include<string>
+#include<boost/current_function.hpp>
 #include "Logger.h"
 
-class Tester{
+class Tester {
 public:
     Tester(const char* className);
-    void assertStrings(const char* expected, const char* result);
-private:    
+    bool assertStrings(const char* funtion_name,
+            const char* expected,
+            const char* result);
+private:
     std::string className;
     const char* FAILED = "FAILED";
-        
+
 };
 
 #endif	/* TESTER_H */

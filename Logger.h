@@ -12,12 +12,17 @@
 #include<sstream>
 #include<unordered_map>
 #include<boost/date_time/posix_time/posix_time.hpp>
+#include<boost/property_tree/ptree.hpp>
+#include<boost/property_tree/json_parser.hpp>
 
 namespace bpt = boost::posix_time;
-
+namespace bptree = boost::property_tree;
 class Logger{
 public:
-    static void log(const char* instance_name, const char* message);    
+    static void log(const char* function_name, 
+            unsigned int line,
+            const char* log_instance_name, 
+            const char* message);    
     static void initLogger(const char* instance_name, const char* fileLoc=nullptr);
     static void finalizeLogger(const char* instance_name);    
 private:
@@ -28,7 +33,6 @@ private:
     std::string logFileLoc;
     std::fstream logStream;    
     bpt::ptime timestamp;
-    
     void updateTimeStamp();
 
 };

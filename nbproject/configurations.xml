@@ -4,14 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
-      <itemPath>UserMailDataset.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Tests" projectFiles="true">
         <itemPath>../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1</itemPath>
-        <itemPath>test_Mail.h</itemPath>
       </logicalFolder>
       <itemPath>Logger.cpp</itemPath>
       <itemPath>Logger.h</itemPath>
@@ -24,7 +22,9 @@
       <itemPath>Tester.cpp</itemPath>
       <itemPath>Tester.h</itemPath>
       <itemPath>UserMailDataset.cpp</itemPath>
+      <itemPath>UserMailDataset.h</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>test_Mail.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Arquivos de Recurso"

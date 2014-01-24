@@ -31,6 +31,6 @@ void UserMailDataset::loadFromLocalPath(const std::string& localPath) {
     } else {
         std::stringstream sstr("Could not find ");
         sstr << localPath << " .Verify base dir";
-        Logger::log(__FUNCTION__, sstr.str().c_str());
+        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "UserMailDataSet", sstr.str().c_str());
     }
 }

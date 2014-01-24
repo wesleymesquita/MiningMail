@@ -3,18 +3,22 @@
 std::unordered_map<std::string, Logger*> Logger::instances;
 const std::string Logger::BASE_DIR = R"(c:\tmp\)";
 
-void Logger::log(const char* instance_name, const char* message) {
-    if (instances.find(instance_name) == instances.end()) {
-        initLogger(instance_name);
+void Logger::log(const char* function_name,
+        unsigned int line,
+        const char* log_instance_name,
+        const char* message) {
+    
+    if (instances.find(log_instance_name) == instances.end()) {
+        initLogger(log_instance_name);
     }
 
-    std::stringstream sstr("");
-    sstr << "[" << instance_name << ":"
-            << bpt::to_simple_string(bpt::second_clock::local_time()) << "] "
-            << message
-            << std::endl;
-    instances[instance_name]->logStream.write(
-            sstr.str().c_str(), sstr.str().size());
+    bptree::ptree pt;
+    pt.put("function_name", function_name);
+    pt.put("line", line);
+    pt.put("log_instance_name", log_instance_name);
+    pt.put("message", message);
+    
+    bptree::write_json(instances[log_instance_name]->logStream, pt, false);
 }
 
 void Logger::initLogger(const char* instance_name,

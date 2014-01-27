@@ -1,6 +1,9 @@
 #include "ConfigManager.h"
 #include "Logger.h"
 
+ConfigManager* ConfigManager::instance = nullptr;
+const char* ConfigManager::DEFAULT_ROOT_DIR = nullptr;
+
 const char* ConfigManager::getDefaultRootDir() {
 
     if (!DEFAULT_ROOT_DIR) {
@@ -38,7 +41,7 @@ void ConfigManager::finalizeConfigManager(){
         delete instance;
         //just to make sure other static 
         // call of finalizeConfigManager won double delete
-        instance = nullptr_t; 
+        instance =  nullptr; 
     }
 }
 
@@ -46,8 +49,8 @@ ConfigManager::ConfigManager(const std::string& configLoc) {
     bptree::ptree pt;
     bptree::read_json(configLoc, pt);
     try {
-        char* root_dir[256];
-        pt.get_child("rootDir", root_dir);
+        char* root_dir;
+        root_dir = pt.get<char*>("rootDir");
         setRootDir(root_dir);
     }catch(bptree::ptree_bad_data& e){
        setRootDir(getDefaultRootDir()); 

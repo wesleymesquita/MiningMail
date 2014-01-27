@@ -14,15 +14,20 @@
 #include<boost/property_tree/json_parser.hpp>
 #include<boost/predef.h>
 
+namespace bptree = boost::property_tree;
+
 class ConfigManager{
 public:
     static const char* getDefaultRootDir();
-    static initConfigManager();
-    static finalizeConfigManager();
+    static void initConfigManager(const char* configFileLoc);
+    static void finalizeConfigManager();
 private:
-    ConfigManager(std::string configLoc);   //ensures singleton 
-    const char* DEFAULT_ROOT_DIR;
-    ConfigManager* instance;
+    static ConfigManager* instance;
+    static const char* DEFAULT_ROOT_DIR;
+
+    ConfigManager(const std::string& configLoc);   //ensures singleton 
+    void setRootDir(const char* dir);
+    std::string rootDir;
 };
 
 #endif	/* CONFIGMANAGER_H */

@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/ConfigManager.o \
 	${OBJECTDIR}/Logger.o \
 	${OBJECTDIR}/Mail.o \
 	${OBJECTDIR}/MailStorage.o \
@@ -64,54 +65,61 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../../../../libs/boost_1_55_0/stage/lib -lboost_filesystem-mgw48-mt-d-1_55 -lboost_system-mgw48-mt-1_55 -lboost_system-mgw48-mt-d-1_55 ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-1_55.a ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-d-1_55.a
+LDLIBSOPTIONS=-L../../Downloads/boost_1_55_0/stage/lib ../../Downloads/boost_1_55_0/stage/lib/libboost_filesystem.a ../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a ../../Downloads/boost_1_55_0/stage/lib/libboost_system.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-1_55.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_filesystem.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ../../../../../libs/boost_1_55_0/stage/lib/libboost_date_time-mgw48-mt-d-1_55.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_system.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/ConfigManager.o: ConfigManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ConfigManager.o ConfigManager.cpp
 
 ${OBJECTDIR}/Logger.o: Logger.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger.o Logger.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger.o Logger.cpp
 
 ${OBJECTDIR}/Mail.o: Mail.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail.o Mail.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail.o Mail.cpp
 
 ${OBJECTDIR}/MailStorage.o: MailStorage.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage.o MailStorage.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage.o MailStorage.cpp
 
 ${OBJECTDIR}/MailStorageTest.o: MailStorageTest.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp
 
 ${OBJECTDIR}/Tester.o: Tester.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester.o Tester.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester.o Tester.cpp
 
 ${OBJECTDIR}/UserMailDataset.o: UserMailDataset.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset.o UserMailDataset.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset.o UserMailDataset.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -126,8 +134,21 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/test_Mail.o ${OBJECTFILES:%.o=%_nomain
 ${TESTDIR}/tests/test_Mail.o: tests/test_Mail.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/test_Mail.o tests/test_Mail.cpp
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/test_Mail.o tests/test_Mail.cpp
 
+
+${OBJECTDIR}/ConfigManager_nomain.o: ${OBJECTDIR}/ConfigManager.o ConfigManager.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/ConfigManager.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ConfigManager_nomain.o ConfigManager.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/ConfigManager.o ${OBJECTDIR}/ConfigManager_nomain.o;\
+	fi
 
 ${OBJECTDIR}/Logger_nomain.o: ${OBJECTDIR}/Logger.o Logger.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -137,7 +158,7 @@ ${OBJECTDIR}/Logger_nomain.o: ${OBJECTDIR}/Logger.o Logger.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger_nomain.o Logger.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Logger_nomain.o Logger.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Logger.o ${OBJECTDIR}/Logger_nomain.o;\
 	fi
@@ -150,7 +171,7 @@ ${OBJECTDIR}/Mail_nomain.o: ${OBJECTDIR}/Mail.o Mail.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail_nomain.o Mail.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Mail_nomain.o Mail.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Mail.o ${OBJECTDIR}/Mail_nomain.o;\
 	fi
@@ -163,7 +184,7 @@ ${OBJECTDIR}/MailStorage_nomain.o: ${OBJECTDIR}/MailStorage.o MailStorage.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage_nomain.o MailStorage.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorage_nomain.o MailStorage.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/MailStorage.o ${OBJECTDIR}/MailStorage_nomain.o;\
 	fi
@@ -176,7 +197,7 @@ ${OBJECTDIR}/MailStorageTest_nomain.o: ${OBJECTDIR}/MailStorageTest.o MailStorag
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest_nomain.o MailStorageTest.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest_nomain.o MailStorageTest.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/MailStorageTest.o ${OBJECTDIR}/MailStorageTest_nomain.o;\
 	fi
@@ -189,7 +210,7 @@ ${OBJECTDIR}/Tester_nomain.o: ${OBJECTDIR}/Tester.o Tester.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester_nomain.o Tester.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tester_nomain.o Tester.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/Tester.o ${OBJECTDIR}/Tester_nomain.o;\
 	fi
@@ -202,7 +223,7 @@ ${OBJECTDIR}/UserMailDataset_nomain.o: ${OBJECTDIR}/UserMailDataset.o UserMailDa
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset_nomain.o UserMailDataset.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/UserMailDataset_nomain.o UserMailDataset.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/UserMailDataset.o ${OBJECTDIR}/UserMailDataset_nomain.o;\
 	fi
@@ -215,7 +236,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -I. -I../../../../../libs/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
 	fi
@@ -232,7 +253,7 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail
 
 # Subprojects
 .clean-subprojects:

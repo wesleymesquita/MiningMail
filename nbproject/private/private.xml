@@ -7,11 +7,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/main.cpp</file>
-            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/Mail.cpp</file>
-            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/UserMailDataset.cpp</file>
-            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/UserMailDataset.h</file>
-            <file>file:/C:/Users/wesley/Documents/GitHub/MiningMail/test_Mail.h</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/project.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/Mail.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/configurations.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-impl.mk</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-Release.mk</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/private/configurations.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/private/private.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/private/Makefile-variables.mk</file>
+            <file>file:/home/wesley/projects/MiningMail/ConfigManager.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-Debug.mk</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Package-Debug.bash</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-variables.mk</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/Package-Release.bash</file>
+            <file>file:/home/wesley/projects/MiningMail/Logger.cpp</file>
         </group>
     </open-files>
 </project-private>

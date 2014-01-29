@@ -9,10 +9,12 @@
 #define	CONFIGMANAGER_H
 
 #include<string>
+#include<cstring>
 
 #include<boost/property_tree/ptree.hpp>
 #include<boost/property_tree/json_parser.hpp>
 #include<boost/predef.h>
+#include<boost/foreach.hpp>
 
 namespace bptree = boost::property_tree;
 
@@ -21,6 +23,7 @@ public:
     static const char* getDefaultRootDir();
     static void initConfigManager(const char* configFileLoc);
     static void finalizeConfigManager();
+    static const char* getRootDir();
 private:
     static ConfigManager* instance;
     static const char* DEFAULT_ROOT_DIR;

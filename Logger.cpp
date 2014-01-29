@@ -1,7 +1,6 @@
 #include "Logger.h"
 
 std::unordered_map<std::string, Logger*> Logger::instances;
-const std::string Logger::BASE_DIR = R"(c:\tmp\)";
 
 void Logger::log(const char* function_name,
         unsigned int line,
@@ -24,11 +23,11 @@ void Logger::log(const char* function_name,
 
 void Logger::initLogger(const char* instance_name,
         const char* fileLoc) {
-
     instances[instance_name] = new Logger();
 
     if (!fileLoc) {
-        instances[instance_name]->logFileLoc = BASE_DIR + instance_name + ".log";
+        instances[instance_name]->logFileLoc = instances[instance_name]->BASE_DIR 
+                + instance_name + ".log";
     } else {
         instances[instance_name]->logFileLoc = fileLoc;
     }
@@ -48,7 +47,8 @@ void Logger::finalizeLogger(const char* instance_name) {
     delete instances[instance_name];
 }
 
-Logger::Logger() {
+Logger::Logger() :
+BASE_DIR(ConfigManager::getRootDir()) {
     // Forces singleton     
 }
 

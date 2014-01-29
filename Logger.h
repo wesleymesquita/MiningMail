@@ -15,6 +15,8 @@
 #include<boost/property_tree/ptree.hpp>
 #include<boost/property_tree/json_parser.hpp>
 
+#include "ConfigManager.h"
+
 namespace bpt = boost::posix_time;
 namespace bptree = boost::property_tree;
 class Logger{
@@ -27,12 +29,12 @@ public:
     static void finalizeLogger(const char* instance_name);    
 private:
     static std::unordered_map<std::string, Logger*> instances;
-    static const std::string BASE_DIR;     
     
     Logger();
     std::string logFileLoc;
     std::fstream logStream;    
     bpt::ptime timestamp;
+    const std::string BASE_DIR;        
     void updateTimeStamp();
 
 };

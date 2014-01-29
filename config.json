@@ -1,0 +1,12 @@
+{
+    "configs": [
+        {
+            "so": "LINUX",
+            "rootDir": "/home/wesley"
+        },
+        {
+            "so": "WINDOWS",
+            "rootDir": "c:\\tmp\\"
+        }
+    ]
+}

@@ -45,16 +45,44 @@ void ConfigManager::finalizeConfigManager(){
     }
 }
 
+const char* ConfigManager::getRootDir(){
+    if(instance){
+        return instance->rootDir.c_str();
+    }
+    else{
+        Logger::log(BOOST_CURRENT_FUNCTION, 
+                __LINE__, 
+                "ConfigManager",
+                "ConfigManager not configured");
+    }
+}
+
 ConfigManager::ConfigManager(const std::string& configLoc) {
     bptree::ptree pt;
     bptree::read_json(configLoc, pt);
+
+#ifdef BOOST_OS_LINUX
+    const char* SO = "LINUX";
+#elif BOOST_OS_WINDOWS
+    const char* SO = "WINDOWS";
+#else
+#error "OS not supported"
+#endif    
+    
     try {
-        char* root_dir;
-        root_dir = pt.get<char*>("rootDir");
-        setRootDir(root_dir);
+        std::string root_dir;
+        
+        BOOST_FOREACH(bptree::ptree::value_type &v, 
+                pt.get_child("configs")){
+            if( v.second.get<std::string>("so").compare(SO) == 0){
+              root_dir = v.second.get<std::string>("rootDir");
+            }
+        } 
+        setRootDir(root_dir.c_str());
     }catch(bptree::ptree_bad_data& e){
        setRootDir(getDefaultRootDir()); 
     }    
 }
+
 
 

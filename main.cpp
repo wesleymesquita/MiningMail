@@ -10,12 +10,15 @@
 
 #include "Logger.h"
 #include "UserMailDataset.h"
+#include "ConfigManager.h"
 
 int main(int argc, char** argv) {
     
+    ConfigManager::initConfigManager("/home/wesley/projects/MiningMail/config.json");
     
-    Logger::initLogger("Mail", R"(c:\tmp\mail.log)");
+    Logger::initLogger("Mail", ConfigManager::getRootDir());
     Logger::log(BOOST_CURRENT_FUNCTION, __LINE__,"main", "Init basic parse test: ");
+    
     bool test_Mail_res = test_mining_mail::test_Mail::test();
     std::stringstream sstr; 
     sstr << "Mail_tests == " << test_Mail_res << std::endl; 

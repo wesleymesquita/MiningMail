@@ -1,16 +1,13 @@
 #include "Logger.h"
 
-std::unordered_map<std::string, Logger*> Logger::instances;
+std::unique_ptr<Logger> Logger::instance;
 
 void Logger::log(const char* function_name,
         unsigned int line,
         const char* log_instance_name,
         const char* message) {
     
-    if (instances.find(log_instance_name) == instances.end()) {
-        initLogger(log_instance_name);
-    }
-
+    
     bptree::ptree pt;
     pt.put("datetime", bpt::to_simple_string(bpt::second_clock::local_time()).c_str());
     pt.put("function_name", function_name);
@@ -18,43 +15,36 @@ void Logger::log(const char* function_name,
     pt.put("log_instance_name", log_instance_name);
     pt.put("message", message);
     
-    bptree::write_json(instances[log_instance_name]->logStream, pt, false);
+    bptree::write_json(instance->logStream, pt, false);
 }
 
-void Logger::initLogger(const char* instance_name,
-        const char* fileLoc) {
-    instances[instance_name] = new Logger();
+void Logger::initLogger(const char* fileLoc) {
+    instance  = std::unique_ptr<Logger>(new Logger());
 
-    if (!fileLoc) {
-        instances[instance_name]->logFileLoc = instances[instance_name]->BASE_DIR 
-                + instance_name + ".log";
-    } else {
-        instances[instance_name]->logFileLoc = fileLoc;
+    if (fileLoc) {
+        instance->logFileLoc = fileLoc;
+    }else {
+       instance->logFileLoc = std::string(ConfigManager::getRootDir()) + 
+                std::string("/log.json");    
     }
 
-
-    instances[instance_name]->logStream.open(
-            instances[instance_name]->logFileLoc.c_str(),
+    instance->logStream.open(instance->logFileLoc.c_str(),
             std::fstream::out | std::fstream::app);
 
-    if (!instances[instance_name]->logStream.good()) {
+    if (!instance->logStream.good()) {
+        std::cerr << "ERROR when trying to initilize Logger" << std::endl;
         throw std::exception();
     }
 }
 
-void Logger::finalizeLogger(const char* instance_name) {
-    instances[instance_name]->logStream.close();
-    delete instances[instance_name];
+void Logger::finalizeLogger() {
+    instance->logStream.close();
 }
 
-Logger::Logger() :
-BASE_DIR(ConfigManager::getRootDir()) {
+Logger::Logger(){
     // Forces singleton     
 }
 
-void Logger::updateTimeStamp() {
-    timestamp = bpt::second_clock::local_time();
-}
 
 
 

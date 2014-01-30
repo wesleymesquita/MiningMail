@@ -98,7 +98,7 @@ Let me know if you have any questions.
 
 Heather)";
 
-    const char* original_data_test_Mail_file = R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir\allen-p\inbox\1)";
+    const char* original_data_test_Mail_file = R"(/home/wesley/projects/MiningMail/1)";
 
     class test_Mail {
     private:

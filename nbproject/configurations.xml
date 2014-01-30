@@ -10,7 +10,6 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Tests" projectFiles="true">
-        <itemPath>../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1</itemPath>
       </logicalFolder>
       <itemPath>ConfigManager.cpp</itemPath>
       <itemPath>ConfigManager.h</itemPath>
@@ -28,7 +27,6 @@
       <itemPath>UserMailDataset.h</itemPath>
       <itemPath>config.json</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>test_Mail.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Arquivos de Recurso"
@@ -79,11 +77,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="ConfigManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConfigManager.h" ex="false" tool="3" flavor2="0">
@@ -130,8 +123,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="test_Mail.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test_mail.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -158,11 +149,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="../../../Downloads/enron_mail_20110402/maildir/allen-p/inbox/1"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="ConfigManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ConfigManager.h" ex="false" tool="3" flavor2="0">
@@ -209,8 +195,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="test_Mail.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test_mail.h" ex="false" tool="3" flavor2="0">
       </item>

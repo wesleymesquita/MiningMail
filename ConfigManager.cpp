@@ -1,5 +1,5 @@
 #include "ConfigManager.h"
-#include "Logger.h"
+#include "MiningMail.h"
 
 ConfigManager* ConfigManager::instance = nullptr;
 const char* ConfigManager::DEFAULT_ROOT_DIR = nullptr;

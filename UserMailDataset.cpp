@@ -1,5 +1,6 @@
 #include<boost/filesystem.hpp>
 
+#include "MiningMail.h"
 #include "UserMailDataset.h"
 #include "Logger.h"
 
@@ -31,6 +32,6 @@ void UserMailDataset::loadFromLocalPath(const std::string& localPath) {
     } else {
         std::stringstream sstr("Could not find ");
         sstr << localPath << " .Verify base dir";
-        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "UserMailDataSet", sstr.str().c_str());
+        LOG_MESSAGE( "UserMailDataSet", sstr.str().c_str());
     }
 }

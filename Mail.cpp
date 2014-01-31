@@ -1,5 +1,5 @@
 #include "Mail.h"
-#include "Logger.h"
+#include "MiningMail.h"
 #include <boost/current_function.hpp>
 
 Mail::Mail(const std::string& fileLoc) {

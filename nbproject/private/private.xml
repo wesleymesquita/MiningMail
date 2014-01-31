@@ -8,19 +8,22 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/wesley/projects/MiningMail/nbproject/project.xml</file>
-            <file>file:/home/wesley/projects/MiningMail/Mail.cpp</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/configurations.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/Tester.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/test_mail.h</file>
             <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-impl.mk</file>
             <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-Release.mk</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/private/configurations.xml</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/private/private.xml</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/private/Makefile-variables.mk</file>
-            <file>file:/home/wesley/projects/MiningMail/ConfigManager.cpp</file>
             <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-Debug.mk</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/Package-Debug.bash</file>
+            <file>file:/home/wesley/projects/MiningMail/Logger.h</file>
+            <file>file:/home/wesley/projects/MiningMail/Tester.h</file>
+            <file>file:/home/wesley/projects/MiningMail/MiningMail.h</file>
+            <file>file:/home/wesley/projects/MiningMail/main.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/UserMailDataset.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/Mail.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/nbproject/configurations.xml</file>
+            <file>file:/home/wesley/projects/MiningMail/ConfigManager.cpp</file>
             <file>file:/home/wesley/projects/MiningMail/nbproject/Makefile-variables.mk</file>
-            <file>file:/home/wesley/projects/MiningMail/nbproject/Package-Release.bash</file>
             <file>file:/home/wesley/projects/MiningMail/Logger.cpp</file>
+            <file>file:/home/wesley/projects/MiningMail/Mail.h</file>
         </group>
     </open-files>
 </project-private>

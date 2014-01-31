@@ -5,8 +5,8 @@
  * Created on December 26, 2013, 9:15 PM
  */
 
-#ifndef ENRONMAIL_H
-#define	ENRONMAIL_H
+#ifndef MAIL_H
+#define	MAIL_H
 
 #include<string>
 #include<fstream>
@@ -67,5 +67,5 @@ private:
 
 };
 
-#endif	/* ENRONMAIL_H */
+#endif	/* MAIL_H */
 

@@ -106,6 +106,11 @@ ${OBJECTDIR}/MailStorageTest.o: MailStorageTest.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest.o MailStorageTest.cpp
 
+${OBJECTDIR}/MiningMail.h.gch: MiningMail.h 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o "$@" MiningMail.h
+
 ${OBJECTDIR}/Tester.o: Tester.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -200,6 +205,19 @@ ${OBJECTDIR}/MailStorageTest_nomain.o: ${OBJECTDIR}/MailStorageTest.o MailStorag
 	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MailStorageTest_nomain.o MailStorageTest.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/MailStorageTest.o ${OBJECTDIR}/MailStorageTest_nomain.o;\
+	fi
+
+${OBJECTDIR}/MiningMail_nomain.h.gch: ${OBJECTDIR}/MiningMail.h.gch MiningMail.h 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/MiningMail.h.gch`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o "$@" MiningMail.h;\
+	else  \
+	    ${CP} ${OBJECTDIR}/MiningMail.h.gch ${OBJECTDIR}/MiningMail_nomain.h.gch;\
 	fi
 
 ${OBJECTDIR}/Tester_nomain.o: ${OBJECTDIR}/Tester.o Tester.cpp 

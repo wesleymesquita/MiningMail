@@ -10,7 +10,8 @@
 
 #include<string>
 #include<boost/current_function.hpp>
-#include "Logger.h"
+
+#include "MiningMail.h"
 
 class Tester {
 public:

@@ -1,9 +1,11 @@
 
 #include<iostream>
-#include<boost/current_function.hpp>
+
+#include "MiningMail.h"
 
 
 #include "Mail.h"
+
 #include "MailStorageTest.h"
 
 #include "test_mail.h"
@@ -18,7 +20,7 @@ int main(int argc, char** argv) {
     
     Logger::initLogger();
     
-    Logger::log(BOOST_CURRENT_FUNCTION, __LINE__,"main", "Init basic parse test: ");
+    LOG_MESSAGE("main", "Init basic parse test: ");
     
     bool test_Mail_res = test_mining_mail::test_Mail::test();
     
@@ -26,7 +28,8 @@ int main(int argc, char** argv) {
     sstr << "Mail_tests == " << test_Mail_res << std::endl; 
     UserMailDataset dataset;
     dataset.loadFromLocalPath(std::string(R"(C:\Users\wesley\Downloads\enron_mail_20110402\maildir)"));
-    Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "main", sstr.str().c_str());
+    
+    LOG_MESSAGE( "main", sstr.str().c_str() );
     
     Logger::finalizeLogger();
     return 0;

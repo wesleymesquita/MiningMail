@@ -19,8 +19,8 @@
 #include<boost/date_time/posix_time/posix_time.hpp>
 #include<boost/current_function.hpp>
 
+#include<MiningMail.h>
 #include "Mail.h"
-#include "Logger.h"
 
 namespace test_mining_mail {
 
@@ -108,7 +108,7 @@ Heather)";
         
         bool test_getMailData() {
             if (mail.getMailData().compare(original_data_test_Mail) != 0) {
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Error Mail::getSubject failed");
+                LOG_MESSAGE( "test_Mail", "Error Mail::getSubject failed");
                 return false;
             }
             return true;
@@ -116,7 +116,7 @@ Heather)";
 
         bool test_getFrom() {
             if (mail.getFrom().compare("heather.dunton@enron.com") != 0) {
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Failure test_getFrom");                
+                LOG_MESSAGE( "test_Mail", "Failure test_getFrom");                
                 return false;
             }
             return true;
@@ -132,7 +132,7 @@ Heather)";
                         mail.getTo().end(),
                         expected.begin());
                 
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Failure test_getTo");
+                LOG_MESSAGE( "test_Mail", "Failure test_getTo");
                 return equal;
             }
         }
@@ -143,7 +143,7 @@ Heather)";
             const std::string date_str("2001-12-7 10:06:42");
             expected_date = boost::posix_time::time_from_string(date_str);
             if (expected_date != mail.getDate()) {
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Failure test_getDate");
+                LOG_MESSAGE( "test_Mail", "Failure test_getDate");
                 return false;
             }
             return true;
@@ -152,7 +152,7 @@ Heather)";
         bool test_getSubject() {
             const std::string expected_subject = "RE: West Position";
             if (mail.getSubject().compare(expected_subject) != 0) {
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Error Mail::getSubject failed");
+                LOG_MESSAGE( "test_Mail", "Error Mail::getSubject failed");
                 return false;
             }
             return true;
@@ -162,7 +162,7 @@ Heather)";
             const std::string expected_message_id =
                     "<16159836.1075855377439.JavaMail.evans@thyme>";
             if (mail.getMessageID().compare(expected_message_id) != 0) {
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "test_Mail", "Error Mail::getMessageID failed");
+                LOG_MESSAGE( "test_Mail", "Error Mail::getMessageID failed");
                 return false;
             }
             return true;

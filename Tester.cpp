@@ -5,10 +5,10 @@ bool Tester::assertStrings(
         const char* expected,
         const char* result) { 
     if (std::string(expected).compare(result) != 0) {
-        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, className.c_str(), "[FAILED] getSubject failed");
+        LOG_MESSAGE( className.c_str(), "[FAILED] getSubject failed");
         return false;
     } else {
-        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__,className.c_str(), "");
+        LOG_MESSAGE(className.c_str(), "");
         return true;
     }
 }

@@ -4,14 +4,14 @@
             "so": "LINUX",
             "data": {
                 "rootDir": "/home/wesley",
-                "emailDataRootDir": "/home/wesley/projects/data"
+                "emailDataRootDir": "/home/wesley/projects/data/enron_mail_20110402/maildir"
             }
         },
         {
             "so": "WINDOWS",
             "data": {
                 "rootDir": "c:\\tmp\\",
-                "emailDataRootDir": "c: \\tmp\\data"
+                "emailDataRootDir": "c: \\tmp\\data\\enron_mail_20110402\\maildir"
             }
         }
     ]

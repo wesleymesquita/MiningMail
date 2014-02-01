@@ -9,12 +9,11 @@
 #include<unordered_map>
 
 #include<boost/date_time/posix_time/posix_time.hpp>
+#include<boost/date_time/gregorian/gregorian.hpp>
 #include<boost/current_function.hpp>
-#include <boost/current_function.hpp>
-
+#include "Mail.h"
 #include "MiningMail.h"
 
-#include "Mail.h"
 
 Mail::Mail(const std::string& fileLoc) {
     loadMailRawdata(fileLoc);
@@ -66,7 +65,7 @@ const bpt::ptime& Mail::getDate() const {
 void Mail::setDate(const std::string& date_str) {
     std::unordered_map<std::string, std::string> date_parsed_data;
 
-    std::unordered_map<std::string, std::string> months = 
+    static std::unordered_map<std::string, std::string> months = 
     {{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, 
     {"Apr", "04"}, {"May", "05"}, {"Jun", "06"}, 
     {"Jul", "07"}, {"Aug", "08"}, {"Sep", "09"}, 
@@ -100,9 +99,21 @@ void Mail::setDate(const std::string& date_str) {
             << date_parsed_data["minute"] << ":"
             << date_parsed_data["second"];
     sstr.imbue(format);
-
-    date = bpt::ptime(bpt::time_from_string(sstr.str()));
-}
+    try{
+        date = bpt::ptime(bpt::time_from_string(sstr.str()));
+    }catch(std::exception& e){
+        std::stringstream sstr;
+        sstr << "Could not convert " << date_str << " to internal date format:  "
+             << "Date was parsed as : "
+             << " month == " << date_parsed_data["year"]
+             << " month_day == " << date_parsed_data["month_day"]
+             << " hour == " << date_parsed_data["hour"]
+             << " minute == " << date_parsed_data["minute"]
+             << " second == " << date_parsed_data["second"]               
+             << " Exception: " << e.what();
+        LOG_MESSAGE("Mail", sstr.str().c_str() );
+    }
+  }
 
 const std::string& Mail::getSubject() const {
     return this->subject;
@@ -176,8 +187,7 @@ void Mail::parseMailData() {
             if (pos_field == std::string::npos) {
                 std::stringstream sstr;
                 sstr << "Could not find field " << field;
-                Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "Mail", sstr.str().c_str());
-                throw std::exception();
+                LOG_MESSAGE("Mail", sstr.str().c_str());
             } else {
                 // '+2' to jump a colon and a space after fields name
                 size_t pos_end_field_value = rawData.find("\n", pos_field + field.size() + 2);
@@ -191,6 +201,5 @@ void Mail::parseMailData() {
         std::stringstream sstr;
         sstr << "Error Mail::parseMailData()";
         LOG_MESSAGE("Mail", sstr.str().c_str());
-        throw std::exception();
     }
 }

@@ -1,3 +1,6 @@
+#include<string>
+#include<vector>
+
 #include<boost/filesystem.hpp>
 
 #include "MiningMail.h"
@@ -9,24 +12,16 @@ namespace bfs = boost::filesystem;
 void UserMailDataset::loadFromLocalPath(const std::string& localPath) {
     bfs::path lpath(localPath);
     std::vector<bfs::path> folders;
+    
     if (bfs::exists(lpath)) {
         if (bfs::is_directory(lpath)) {
             auto it = bfs::directory_iterator(lpath);
-            while (it != bfs::directory_iterator()) {
-                if (bfs::is_directory(it->path())) {
-                    folders.push_back(it->path());
-
-                }
+            while(it != bfs::directory_iterator()){
+                loadFromLocalPath(it->path().string());                    
                 it++;
             }
-            for (auto f : folders) {
-                auto mail_it = bfs::directory_iterator(f);
-                Mail mail(mail_it->path().string().c_str());
-                emails.push_back(std::move(mail));
-            }
-
-        } else {
-            Mail mail(lpath.string().c_str());
+          } else {
+            Mail mail(lpath.string());
             emails.push_back(std::move(mail));
         }
     } else {

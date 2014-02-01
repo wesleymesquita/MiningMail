@@ -1,5 +1,17 @@
+#include<string>
+#include<memory>
+#include<unordered_map>
+#include<stdexcept>
+
+#include<boost/property_tree/ptree.hpp>
+#include<boost/property_tree/json_parser.hpp>
+#include<boost/predef.h>
+#include<boost/foreach.hpp>
+
 #include "ConfigManager.h"
 #include "MiningMail.h"
+
+namespace bptree = boost::property_tree;
 
 std::unique_ptr<ConfigManager> ConfigManager::instance;
 const char* ConfigManager::DEFAULT_ROOT_DIR = nullptr;

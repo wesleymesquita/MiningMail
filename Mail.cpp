@@ -1,3 +1,19 @@
+#include<string>
+#include<fstream>
+#include<sstream>
+#include<algorithm>
+#include<iterator>
+#include<utility>
+#include <exception>
+#include<functional>
+#include<unordered_map>
+
+#include<boost/date_time/posix_time/posix_time.hpp>
+#include<boost/current_function.hpp>
+#include <boost/current_function.hpp>
+
+#include "MiningMail.h"
+
 #include "Mail.h"
 
 Mail::Mail(const std::string& fileLoc) {

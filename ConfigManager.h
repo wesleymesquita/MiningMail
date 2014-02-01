@@ -8,18 +8,9 @@
 #ifndef CONFIGMANAGER_H
 #define	CONFIGMANAGER_H
 
-#include<string>
-#include<memory>
-#include<unordered_map>
-#include<stdexcept>
-
-#include<boost/property_tree/ptree.hpp>
-#include<boost/property_tree/json_parser.hpp>
-#include<boost/predef.h>
-#include<boost/foreach.hpp>
-
-
-namespace bptree = boost::property_tree;
+#include <memory>
+#include <string>
+#include <unordered_map>
 
 class ConfigManager{
 public:

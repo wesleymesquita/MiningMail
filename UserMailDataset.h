@@ -10,7 +10,7 @@
 
 #include<string>
 #include<vector>
-#include<boost/current_function.hpp>
+
 #include "Mail.h"
 
 class UserMailDataset{

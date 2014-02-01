@@ -3,6 +3,9 @@
 
 std::unique_ptr<ConfigManager> ConfigManager::instance;
 const char* ConfigManager::DEFAULT_ROOT_DIR = nullptr;
+const char* ConfigManager::LINUX = "LINUX";
+const char* ConfigManager::WINDOWS = "WINDOWS";
+
 
 const char* ConfigManager::getDefaultRootDir() {
 
@@ -41,29 +44,36 @@ const char* ConfigManager::getProperty(const char* property) {
     }
 }
 
-ConfigManager::ConfigManager(const char* configFileLoc) {
-    bptree::ptree pt;
-    bptree::read_json(configFileLoc, pt);
-
+const char* ConfigManager::getOS() {
 #ifdef BOOST_OS_LINUX
-    const char* SO = "LINUX";
+    return ConfigManager::LINUX;
 #elif BOOST_OS_WINDOWS
-    const char* SO = "WINDOWS";
+    return ConfigManager::WINDOWS;
 #else
 #error "OS not supported"
 #endif    
 
+}
+
+ConfigManager::ConfigManager(const char* configFileLoc) {
+    
+    bptree::ptree pt;
+    bptree::read_json(configFileLoc, pt);
+
+    const char* currentOS = getOS();
+    
+    properties["defaultRootDir"] = getDefaultRootDir();
+           
     try {
-        
-        properties["defaultRootDir"] = getDefaultRootDir();
-        
-        BOOST_FOREACH(bptree::ptree::value_type &v,
-                pt.get_child("configs")) {
-            if (v.second.get<std::string>("so").compare(SO) == 0) {
                 
-                pt.get_child("configs").get
+        BOOST_FOREACH(bptree::ptree::value_type &v,
+                pt.get_child("configs") ) {
+            
+            if (v.second.get<std::string>("so").compare(currentOS) == 0) {
+                               
                 BOOST_FOREACH(bptree::ptree::value_type &w,
-                        v.get_child("data")) {
+                        v.second.get_child("data") ) {
+                    
                     properties[w.first] = w.second.get_value<std::string>();                
                 }
 

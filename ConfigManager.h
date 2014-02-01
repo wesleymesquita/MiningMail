@@ -26,7 +26,14 @@ public:
     static void initConfigManager(const char* configFileLoc);
     static void finalizeConfigManager();
     static const char* getProperty(const char* key);
+
 private:
+    
+    static const char* LINUX;
+    static const char* WINDOWS;
+    const char* getOS();
+   
+    
     static std::unique_ptr<ConfigManager> instance;
     static const char* DEFAULT_ROOT_DIR;
       
@@ -35,6 +42,7 @@ private:
     std::string rootDir;
     std::unordered_map<std::string, std::string> properties;
     const char* getDefaultRootDir();
+    
 };
 
 #endif	/* CONFIGMANAGER_H */

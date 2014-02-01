@@ -14,14 +14,16 @@
 #include<algorithm>
 #include<iterator>
 #include<utility>
-
+#include <exception>
 #include<functional>
 #include<unordered_map>
 
 #include<boost/date_time/posix_time/posix_time.hpp>
 #include<boost/current_function.hpp>
+#include <boost/current_function.hpp>
 
-#include <exception>
+
+#include "MiningMail.h"
 
 namespace bpt = boost::posix_time;
 

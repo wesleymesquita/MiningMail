@@ -1,6 +1,4 @@
 #include "Mail.h"
-#include "MiningMail.h"
-#include <boost/current_function.hpp>
 
 Mail::Mail(const std::string& fileLoc) {
     loadMailRawdata(fileLoc);
@@ -176,7 +174,7 @@ void Mail::parseMailData() {
     } else {
         std::stringstream sstr;
         sstr << "Error Mail::parseMailData()";
-        Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, "Mail", sstr.str().c_str());
+        LOG_MESSAGE("Mail", sstr.str().c_str());
         throw std::exception();
     }
 }

@@ -24,7 +24,7 @@ void Logger::initLogger(const char* fileLoc) {
     if (fileLoc) {
         instance->logFileLoc = fileLoc;
     }else {
-       instance->logFileLoc = std::string(ConfigManager::getRootDir()) + 
+       instance->logFileLoc = std::string(ConfigManager::getProperty("rootDir")) + 
                 std::string("/log.json");    
     }
 

@@ -1,7 +1,7 @@
 #include "ConfigManager.h"
 #include "MiningMail.h"
 
-ConfigManager* ConfigManager::instance = nullptr;
+std::unique_ptr<ConfigManager> ConfigManager::instance;
 const char* ConfigManager::DEFAULT_ROOT_DIR = nullptr;
 
 const char* ConfigManager::getDefaultRootDir() {
@@ -18,48 +18,32 @@ const char* ConfigManager::getDefaultRootDir() {
     return DEFAULT_ROOT_DIR;
 }
 
-    
-void ConfigManager::setRootDir(const char* dir){
-    rootDir = dir;
-}
-    
-
-void ConfigManager::initConfigManager(const char* configFileLoc){
-    if(!instance){
-        instance = new ConfigManager(configFileLoc);
-    }
-    else{
-        Logger::log(BOOST_CURRENT_FUNCTION, 
-                __LINE__, 
-                "ConfigManager",
-                "ConfigManager already configured");
+void ConfigManager::initConfigManager(const char* configFileLoc) {
+    if (!instance) {
+        instance = std::unique_ptr<ConfigManager>(new ConfigManager(configFileLoc));
+    } else {
+        LOG_MESSAGE("ConfigManager", "ConfigManager already configured");
     }
 }
 
-void ConfigManager::finalizeConfigManager(){
-    if(instance){
-        delete instance;
-        //just to make sure other static 
-        // call of finalizeConfigManager won double delete
-        instance =  nullptr; 
+void ConfigManager::finalizeConfigManager() {
+}
+
+const char* ConfigManager::getProperty(const char* property) {
+    try{
+        return instance->properties[property].c_str();
+    }
+    catch(const std::out_of_range& oor){
+        std::stringstream sstr;
+        sstr << "Could not find property:  " << property << 
+                "Exception: " << oor.what();
+        LOG_MESSAGE("ConfigManager", sstr.str().c_str());
     }
 }
 
-const char* ConfigManager::getRootDir(){
-    if(instance){
-        return instance->rootDir.c_str();
-    }
-    else{
-        Logger::log(BOOST_CURRENT_FUNCTION, 
-                __LINE__, 
-                "ConfigManager",
-                "ConfigManager not configured");
-    }
-}
-
-ConfigManager::ConfigManager(const std::string& configLoc) {
+ConfigManager::ConfigManager(const char* configFileLoc) {
     bptree::ptree pt;
-    bptree::read_json(configLoc, pt);
+    bptree::read_json(configFileLoc, pt);
 
 #ifdef BOOST_OS_LINUX
     const char* SO = "LINUX";
@@ -68,21 +52,26 @@ ConfigManager::ConfigManager(const std::string& configLoc) {
 #else
 #error "OS not supported"
 #endif    
-    
+
     try {
-        std::string root_dir;
         
-        BOOST_FOREACH(bptree::ptree::value_type &v, 
-                pt.get_child("configs")){
-            if( v.second.get<std::string>("so").compare(SO) == 0){
-              root_dir = v.second.get<std::string>("rootDir");
+        properties["defaultRootDir"] = getDefaultRootDir();
+        
+        BOOST_FOREACH(bptree::ptree::value_type &v,
+                pt.get_child("configs")) {
+            if (v.second.get<std::string>("so").compare(SO) == 0) {
+                
+                pt.get_child("configs").get
+                BOOST_FOREACH(bptree::ptree::value_type &w,
+                        v.get_child("data")) {
+                    properties[w.first] = w.second.get_value<std::string>();                
+                }
+
+               break;     
             }
-        } 
-        setRootDir(root_dir.c_str());
-    }catch(bptree::ptree_bad_data& e){
-       setRootDir(getDefaultRootDir()); 
-    }    
+        }
+   
+    } catch (bptree::ptree_bad_data& e) {
+        LOG_MESSAGE("ConfigManager", "Could not parse config file");
+    }
 }
-
-
-

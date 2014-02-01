@@ -2,11 +2,17 @@
     "configs": [
         {
             "so": "LINUX",
-            "rootDir": "/home/wesley"
+            "data": {
+                "rootDir": "/home/wesley",
+                "emailDataRootDir": "/home/wesley/projects/data"
+            }
         },
         {
             "so": "WINDOWS",
-            "rootDir": "c:\\tmp\\"
+            "data": {
+                "rootDir": "c:\\tmp\\",
+                "emailDataRootDir": "c: \\tmp\\data"
+            }
         }
     ]
 }

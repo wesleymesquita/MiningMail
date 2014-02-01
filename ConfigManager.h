@@ -9,28 +9,32 @@
 #define	CONFIGMANAGER_H
 
 #include<string>
-#include<cstring>
+#include<memory>
+#include<unordered_map>
+#include<stdexcept>
 
 #include<boost/property_tree/ptree.hpp>
 #include<boost/property_tree/json_parser.hpp>
 #include<boost/predef.h>
 #include<boost/foreach.hpp>
 
+
 namespace bptree = boost::property_tree;
 
 class ConfigManager{
 public:
-    static const char* getDefaultRootDir();
     static void initConfigManager(const char* configFileLoc);
     static void finalizeConfigManager();
-    static const char* getRootDir();
+    static const char* getProperty(const char* key);
 private:
-    static ConfigManager* instance;
+    static std::unique_ptr<ConfigManager> instance;
     static const char* DEFAULT_ROOT_DIR;
-
-    ConfigManager(const std::string& configLoc);   //ensures singleton 
-    void setRootDir(const char* dir);
+      
+    ConfigManager(const char* configFileLoc);   //ensures singleton 
+    
     std::string rootDir;
+    std::unordered_map<std::string, std::string> properties;
+    const char* getDefaultRootDir();
 };
 
 #endif	/* CONFIGMANAGER_H */

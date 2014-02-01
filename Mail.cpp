@@ -1,16 +1,19 @@
-#include<string>
-#include<fstream>
-#include<sstream>
-#include<algorithm>
-#include<iterator>
-#include<utility>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+#include <utility>
 #include <exception>
-#include<functional>
-#include<unordered_map>
+#include <functional>
+#include <unordered_map>
 
 #include<boost/date_time/posix_time/posix_time.hpp>
 #include<boost/date_time/gregorian/gregorian.hpp>
 #include<boost/current_function.hpp>
+#include <boost/regex.hpp>
+
+
 #include "Mail.h"
 #include "MiningMail.h"
 
@@ -70,23 +73,32 @@ void Mail::setDate(const std::string& date_str) {
     {"Apr", "04"}, {"May", "05"}, {"Jun", "06"}, 
     {"Jul", "07"}, {"Aug", "08"}, {"Sep", "09"}, 
     {"Oct", "10"}, {"Nov", "11"}, {"Dec", "12"}};
-
-    date_parsed_data["week_day"] = date_str.substr(0, 3);
-    date_parsed_data["month_day"] = date_str.substr(5, 1).size() == 1 ?
-            std::string("0" + date_str.substr(5, 1)) :
-            date_str.substr(5, 1);
-    date_parsed_data["month"] = months[ date_str.substr(7, 3)];
+    
+    //date_str example: Sat, 20 Oct 2001 03:10:58 -0700 (PDT)    
+    // Expression about was verified at http://regex101.com/r/rC1pR9
+    // ([A-Z][a-z][a-z]),\s([0-9]+)\s([A-Z][a-z][a-z])\s([0-9]{4,4})\s([0-2][0-9]:[0-5][0-9]:[0-5][0-9])\s(-[0-9]{4,4})\s(\([A-Z]{3,3}\))
+    
+    const static std::string reg_exp = 
+    "([A-Z][a-z][a-z]),\\s([0-9]+)\\s([A-Z][a-z][a-z])\\s([0-9]{4,4})\\s([0-2][0-9]):([0-5][0-9]):([0-5][0-9])\\s(-[0-9]{4,4})\\s(\\([A-Z]{3,3}\\))";
+    
+    boost::regex date_rgx(reg_exp);   
+    boost::sregex_iterator it(date_str.begin(), date_str.end(), date_rgx);
+    
+    date_parsed_data["week_day"] = (*it)[0].str();
+    
+    date_parsed_data["month_day"] = (*it)[1].str().size() == 1 ?
+            std::string("0") + (*it)[1].str() :
+            (*it)[1].str();
+    
+    date_parsed_data["month"] = months[ (*it)[2].str() ];
      
-    date_parsed_data["year"] = date_str.substr(11, 4).size() == 1 ?
-            std::string("0" + date_str.substr(11, 4)) :
-            date_str.substr(11, 4);
-          
-    date_parsed_data["hour"] = date_str.substr(16, 2);
-    date_parsed_data["minute"] = date_str.substr(19, 2);
-    date_parsed_data["second"] = date_str.substr(22, 2);
-    date_parsed_data["time_zone"] = date_str.substr(24, 6);
-
-
+    date_parsed_data["year"] = (*it)[3].str();
+            
+    date_parsed_data["hour"] = (*it)[4].str();
+    date_parsed_data["minute"] = (*it)[5].str();
+    date_parsed_data["second"] = (*it)[6].str();
+    date_parsed_data["time_zone"] = (*it)[7].str();
+    
     const std::locale format = std::locale(std::locale::classic(),
             new bpt::time_input_facet("%04Y-%02m-%02d %H:%M:%S"));
 
@@ -99,6 +111,7 @@ void Mail::setDate(const std::string& date_str) {
             << date_parsed_data["minute"] << ":"
             << date_parsed_data["second"];
     sstr.imbue(format);
+    
     try{
         date = bpt::ptime(bpt::time_from_string(sstr.str()));
     }catch(std::exception& e){

@@ -65,7 +65,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../../Downloads/boost_1_55_0/stage/lib ../../Downloads/boost_1_55_0/stage/lib/libboost_filesystem.a ../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a ../../Downloads/boost_1_55_0/stage/lib/libboost_system.a
+LDLIBSOPTIONS=-L../../Downloads/boost_1_55_0/stage/lib ../../Downloads/boost_1_55_0/stage/lib/libboost_filesystem.a ../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a ../../Downloads/boost_1_55_0/stage/lib/libboost_system.a ../../Downloads/boost_1_55_0/stage/lib/libboost_regex.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -76,6 +76,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_5
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_system.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ../../Downloads/boost_1_55_0/stage/lib/libboost_regex.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/miningmail: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

@@ -75,6 +75,7 @@
             <linkerLibFileItem>../../Downloads/boost_1_55_0/stage/lib/libboost_filesystem.a</linkerLibFileItem>
             <linkerLibFileItem>../../Downloads/boost_1_55_0/stage/lib/libboost_date_time.a</linkerLibFileItem>
             <linkerLibFileItem>../../Downloads/boost_1_55_0/stage/lib/libboost_system.a</linkerLibFileItem>
+            <linkerLibFileItem>../../Downloads/boost_1_55_0/stage/lib/libboost_regex.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

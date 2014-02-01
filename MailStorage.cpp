@@ -6,26 +6,25 @@
  */
 
 #include "MailStorage.h"
-
-MailStorage::MailStorage(const std::string& _rootDir) {
-    if(!fs::exists(_rootDir) && fs::is_directory(_rootDir)){
-        throw std::exception();
-    }
-    else
-    {
-        rootDir = _rootDir;
-    }
-}
-
-void MailStorage::loadUsers()
+namespace mm
 {
-    fs::directory_iterator it(rootDir);
-    while(it != fs::directory_iterator()){
-        std::cout << it->path() << std::endl;
-        it++;
-    }     
-}
 
-MailStorage::~MailStorage() {
-}
+    MailStorage::MailStorage(const std::string & _rootDir) {
+        if (!fs::exists(_rootDir) && fs::is_directory(_rootDir)) {
+            throw std::exception();
+        } else {
+            rootDir = _rootDir;
+        }
+    }
 
+    void MailStorage::loadUsers() {
+        fs::directory_iterator it(rootDir);
+        while (it != fs::directory_iterator()) {
+            std::cout << it->path() << std::endl;
+            it++;
+        }
+    }
+
+    MailStorage::~MailStorage() {
+    }
+};

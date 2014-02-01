@@ -8,6 +8,7 @@
       <itemPath>Logger.h</itemPath>
       <itemPath>Mail.h</itemPath>
       <itemPath>MailStorage.h</itemPath>
+      <itemPath>MailStorageTest.h</itemPath>
       <itemPath>MiningMail.h</itemPath>
       <itemPath>Tester.h</itemPath>
       <itemPath>UserMailDataset.h</itemPath>
@@ -23,7 +24,6 @@
       <itemPath>Mail.cpp</itemPath>
       <itemPath>MailStorage.cpp</itemPath>
       <itemPath>MailStorageTest.cpp</itemPath>
-      <itemPath>MailStorageTest.h</itemPath>
       <itemPath>Tester.cpp</itemPath>
       <itemPath>UserMailDataset.cpp</itemPath>
       <itemPath>main.cpp</itemPath>

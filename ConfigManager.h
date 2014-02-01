@@ -12,29 +12,32 @@
 #include <string>
 #include <unordered_map>
 
-class ConfigManager{
-public:
-    static void initConfigManager(const char* configFileLoc);
-    static void finalizeConfigManager();
-    static const char* getProperty(const char* key);
+namespace mm {
 
-private:
-    
-    static const char* LINUX;
-    static const char* WINDOWS;
-    const char* getOS();
-   
-    
-    static std::unique_ptr<ConfigManager> instance;
-    static const char* DEFAULT_ROOT_DIR;
-      
-    ConfigManager(const char* configFileLoc);   //ensures singleton 
-    
-    std::string rootDir;
-    std::unordered_map<std::string, std::string> properties;
-    const char* getDefaultRootDir();
-    
-};
+    class ConfigManager {
+    public:
+        static void initConfigManager(const char* configFileLoc);
+        static void finalizeConfigManager();
+        static const char* getProperty(const char* key);
 
+    private:
+
+        static const char* LINUX;
+        static const char* WINDOWS;
+        const char* getOS();
+
+
+        static std::unique_ptr<ConfigManager> instance;
+        static const char* DEFAULT_ROOT_DIR;
+
+        // private and std::unique_ptr to ensure singleton 
+        ConfigManager(const char* configFileLoc); 
+
+        std::string rootDir;
+        std::unordered_map<std::string, std::string> properties;
+        const char* getDefaultRootDir();
+
+    };
+}
 #endif	/* CONFIGMANAGER_H */
 

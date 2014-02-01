@@ -11,8 +11,10 @@
 #include<boost/current_function.hpp>
 #include "Logger.h"
 
-#define LOG_MESSAGE(__LOG_ID__, __LOG_MESSAGE__)\
-   Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, __LOG_ID__, __LOG_MESSAGE__); 
+namespace mm {
 
+#define LOG_MESSAGE(__LOG_ID__, __LOG_MESSAGE__)\
+   mm::Logger::log(BOOST_CURRENT_FUNCTION, __LINE__, __LOG_ID__, __LOG_MESSAGE__); 
+};
 
 #endif	/* MININGMAIL_H */

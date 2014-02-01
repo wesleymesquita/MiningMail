@@ -9,15 +9,16 @@
 #define	MAILSTORAGETEST_H
 
 #include "MailStorage.h"
+namespace mm {
 
-class MailStorageTest {
-public:
-    MailStorageTest();
-    virtual ~MailStorageTest();
-    static bool test();
-private:
+    class MailStorageTest {
+    public:
+        MailStorageTest();
+        virtual ~MailStorageTest();
+        static bool test();
+    private:
 
-};
-
+    };
+}
 #endif	/* MAILSTORAGETEST_H */
 

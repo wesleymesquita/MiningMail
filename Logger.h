@@ -18,27 +18,29 @@
 
 #include "ConfigManager.h"
 
-namespace bpt = boost::posix_time;
-namespace bptree = boost::property_tree;
+namespace mm {
 
-class Logger{
-public:
-    static void log(const char* function_name, 
-            unsigned int line,
-            const char* log_instance_name, 
-            const char* message);    
-    static void initLogger(const char* fileLoc=nullptr);
-    static void finalizeLogger();    
+    namespace bpt = boost::posix_time;
+    namespace bptree = boost::property_tree;
 
-private:
-    static std::unique_ptr<Logger> instance;
-    
-    Logger();
-    std::string logFileLoc;
-    std::fstream logStream;    
+    class Logger {
+    public:
+        static void log(const char* function_name,
+                unsigned int line,
+                const char* log_instance_name,
+                const char* message);
+        static void initLogger(const char* fileLoc = nullptr);
+        static void finalizeLogger();
 
-};
+    private:
+        static std::unique_ptr<Logger> instance;
 
+        Logger();
+        std::string logFileLoc;
+        std::fstream logStream;
+
+    };
+}
 
 #endif	/* LOGGER_H */
 

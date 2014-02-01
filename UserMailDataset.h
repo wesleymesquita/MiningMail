@@ -13,12 +13,15 @@
 
 #include "Mail.h"
 
-class UserMailDataset{
-public:
-    void loadFromLocalPath(const std::string& localPath);
-private:
-    std::string user;
-    std::vector<Mail> emails;
+namespace mm {
+
+    class UserMailDataset {
+    public:
+        void loadFromLocalPath(const std::string& localPath);
+    private:
+        std::string user;
+        std::vector<Mail> emails;
+    };
 };
 
 #endif	/* USERMAILDATASET__H */

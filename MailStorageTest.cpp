@@ -6,16 +6,16 @@
  */
 
 #include "MailStorageTest.h"
+namespace mm {
 
-MailStorageTest::MailStorageTest() {
-}
+    MailStorageTest::MailStorageTest() {
+    }
 
+    MailStorageTest::~MailStorageTest() {
+    }
 
-MailStorageTest::~MailStorageTest() {
-}
-
-bool MailStorageTest::test(){
-    MailStorage storage("C:\\Users\\wesley\\Downloads\\enron_mail_20110402\\maildir");
-    storage.loadUsers();
-}
-        
+    bool MailStorageTest::test() {
+        MailStorage storage("C:\\Users\\wesley\\Downloads\\enron_mail_20110402\\maildir");
+        storage.loadUsers();
+    }
+};

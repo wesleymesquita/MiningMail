@@ -23,7 +23,9 @@
 #include "Mail.h"
 
 namespace test_mining_mail {
-
+    
+    using namespace mm;
+    
     const char* original_data_test_Mail =
             R"(Message-ID: <16159836.1075855377439.JavaMail.evans@thyme>
 Date: Fri, 7 Dec 2001 10:06:42 -0800 (PST)

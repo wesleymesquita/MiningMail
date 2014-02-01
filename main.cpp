@@ -16,9 +16,9 @@
 
 int main(int argc, char** argv) {
 
-    ConfigManager::initConfigManager("/home/wesley/projects/MiningMail/config.json");
+    mm::ConfigManager::initConfigManager("/home/wesley/projects/MiningMail/config.json");
 
-    Logger::initLogger();
+    mm::Logger::initLogger();
 
     LOG_MESSAGE("main", "Init basic parse test: ");
 
@@ -26,13 +26,14 @@ int main(int argc, char** argv) {
 
     std::stringstream sstr("");
     sstr << "Mail_tests == " << test_Mail_res << std::endl;
-    UserMailDataset dataset;
+    
+    mm::UserMailDataset dataset;
     dataset.loadFromLocalPath(
-            std::string(ConfigManager::getProperty("emailDataRootDir")));
+            std::string(mm::ConfigManager::getProperty("emailDataRootDir")));
 
     LOG_MESSAGE("main", sstr.str().c_str());
 
-    Logger::finalizeLogger();
+    mm::Logger::finalizeLogger();
     return 0;
 }
 

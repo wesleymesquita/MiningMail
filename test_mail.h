@@ -23,9 +23,9 @@
 #include "Mail.h"
 
 namespace test_mining_mail {
-    
+
     using namespace mm;
-    
+
     const char* original_data_test_Mail =
             R"(Message-ID: <16159836.1075855377439.JavaMail.evans@thyme>
 Date: Fri, 7 Dec 2001 10:06:42 -0800 (PST)
@@ -105,12 +105,10 @@ Heather)";
     class test_Mail {
     private:
         const Mail mail;
-        
-        
-        
+
         bool test_getMailData() {
             if (mail.getMailData().compare(original_data_test_Mail) != 0) {
-                LOG_MESSAGE( "test_Mail", "Error Mail::getSubject failed");
+                LOG_MESSAGE("test_Mail", "Error Mail::getSubject failed");
                 return false;
             }
             return true;
@@ -118,7 +116,7 @@ Heather)";
 
         bool test_getFrom() {
             if (mail.getFrom().compare("heather.dunton@enron.com") != 0) {
-                LOG_MESSAGE( "test_Mail", "Failure test_getFrom");                
+                LOG_MESSAGE("test_Mail", "Failure test_getFrom");
                 return false;
             }
             return true;
@@ -133,8 +131,8 @@ Heather)";
                 bool equal = std::equal(mail.getTo().begin(),
                         mail.getTo().end(),
                         expected.begin());
-                
-                LOG_MESSAGE( "test_Mail", "Failure test_getTo");
+
+                LOG_MESSAGE("test_Mail", "Failure test_getTo");
                 return equal;
             }
         }
@@ -145,7 +143,7 @@ Heather)";
             const std::string date_str("2001-12-7 10:06:42");
             expected_date = boost::posix_time::time_from_string(date_str);
             if (expected_date != mail.getDate()) {
-                LOG_MESSAGE( "test_Mail", "Failure test_getDate");
+                LOG_MESSAGE("test_Mail", "Failure test_getDate");
                 return false;
             }
             return true;
@@ -154,7 +152,7 @@ Heather)";
         bool test_getSubject() {
             const std::string expected_subject = "RE: West Position";
             if (mail.getSubject().compare(expected_subject) != 0) {
-                LOG_MESSAGE( "test_Mail", "Error Mail::getSubject failed");
+                LOG_MESSAGE("test_Mail", "Error Mail::getSubject failed");
                 return false;
             }
             return true;
@@ -164,16 +162,25 @@ Heather)";
             const std::string expected_message_id =
                     "<16159836.1075855377439.JavaMail.evans@thyme>";
             if (mail.getMessageID().compare(expected_message_id) != 0) {
-                LOG_MESSAGE( "test_Mail", "Error Mail::getMessageID failed");
+                LOG_MESSAGE("test_Mail", "Error Mail::getMessageID failed");
                 return false;
             }
             return true;
         }
+
+        bool test_toJSON() {
+
+            std::cout << mail.toJSON() << std::endl;
+
+            
+            return true;
+        }
     public:
-        test_Mail():
-            mail(original_data_test_Mail_file){           
-        }    
-        
+
+        test_Mail() :
+        mail(original_data_test_Mail_file) {
+        }
+
         static int test() {
             test_Mail tester;
 
@@ -192,7 +199,11 @@ Heather)";
                     }},
                 { [&]()->bool {
                         return tester.test_getSubject();
+                    }},
+                { [&]()->bool {
+                        return tester.test_toJSON();
                     }}
+
             };
 
             std::vector<bool> result;
@@ -207,6 +218,7 @@ Heather)";
             return std::equal(result.begin(), result.end(), expected_result.begin());
         }
     };
+
 }
 
 #endif	/* TEST_MAIL_H */

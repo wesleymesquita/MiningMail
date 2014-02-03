@@ -7,11 +7,14 @@
 #include <exception>
 #include <functional>
 #include <unordered_map>
+#include <memory>
 
-#include<boost/date_time/posix_time/posix_time.hpp>
-#include<boost/date_time/gregorian/gregorian.hpp>
-#include<boost/current_function.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
+#include <boost/current_function.hpp>
 #include <boost/regex.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 
 #include "Mail.h"
@@ -19,7 +22,7 @@
 
 
 namespace mm {
-
+    
     Mail::Mail(const std::string& fileLoc) {
         loadMailRawdata(fileLoc);
         parseMailData();
@@ -225,4 +228,29 @@ namespace mm {
             LOG_MESSAGE("Mail", sstr.str().c_str());
         }
     }
+
+    const std::string Mail::toJSON() const{
+        namespace bptree = boost::property_tree;
+        
+        bptree::ptree pt;
+        pt.put("from", getFrom());
+        for(auto& t: getTo()){
+         pt.put("to", t);   
+        }
+        pt.put("subject", getSubject());
+        pt.put("messageID", getMessageID());
+        pt.put("date", getISODate());
+        
+        std::stringstream sstr;       
+        bptree::write_json(sstr, pt, false);
+        
+        return std::move(sstr.str());
+    }
+
+     const std::string Mail::getISODate() const{
+         bpt::ptime p = getDate();
+         return std::move(bpt::to_iso_extended_string(p));
+     }
+        
+    
 };

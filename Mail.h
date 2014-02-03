@@ -24,7 +24,8 @@ namespace mm {
         const std::string& getSubject() const;
         const std::string& getMailData() const;
         const std::string& getMessageID() const;
-
+        const std::string toJSON() const;
+        const std::string getISODate() const;
     private:
         std::string messageID;
         std::string from;
@@ -52,8 +53,7 @@ namespace mm {
 
         void loadMailRawdata(const std::string& fileLoc);
         void parseMailData();
-
-
+       
     };
 };
 #endif	/* MAIL_H */

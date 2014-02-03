@@ -14,8 +14,10 @@
 #include "UserMailDataset.h"
 #include "ConfigManager.h"
 
-int main(int argc, char** argv) {
 
+int main(int argc, char** argv) {
+    
+    
     mm::ConfigManager::initConfigManager("/home/wesley/projects/MiningMail/config.json");
 
     mm::Logger::initLogger();

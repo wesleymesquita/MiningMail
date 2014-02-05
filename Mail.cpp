@@ -8,6 +8,7 @@
 #include <functional>
 #include <unordered_map>
 #include <memory>
+#include <locale>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
@@ -15,14 +16,15 @@
 #include <boost/regex.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
-
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 #include "Mail.h"
 #include "MiningMail.h"
 
 
 namespace mm {
-    
+
     Mail::Mail(const std::string& fileLoc) {
         loadMailRawdata(fileLoc);
         parseMailData();
@@ -48,20 +50,12 @@ namespace mm {
 
     void Mail::setTo(const std::string& to_str) {
         std::vector<std::string> res;
-        size_t pos_begin = 0;
-
-        size_t pos_end = to_str.find(',', pos_begin);
-        if (pos_end == std::string::npos) {
-            res.push_back(to_str);
-        } else {
-            while (pos_end != std::string::npos) {
-                std::string tmp = to_str.substr(pos_begin, pos_end);
-                res.push_back(std::move(tmp));
-                pos_begin = pos_end + 1;
-                pos_end = to_str.find(',', pos_begin);
-            }
-        }
-
+        boost::split(res, to_str, boost::is_any_of(","));
+        std::for_each(res.begin(), res.end(),
+                [&](std::string & str) {
+                    std::remove_if(str.begin(), str.end(), [](char c) {
+                        return std::isspace(c); });
+                });
         this->to = std::move(res);
     }
 
@@ -72,7 +66,7 @@ namespace mm {
     void Mail::setDate(const std::string& date_str) {
         std::unordered_map<std::string, std::string> date_parsed_data;
 
-        static std::unordered_map<std::string, std::string> months ={
+        static std::unordered_map<std::string, std::string> months = {
             {"Jan", "01"},
             {"Feb", "02"},
             {"Mar", "03"},
@@ -84,7 +78,8 @@ namespace mm {
             {"Sep", "09"},
             {"Oct", "10"},
             {"Nov", "11"},
-            {"Dec", "12"}};
+            {"Dec", "12"}
+        };
 
         //date_str example: Sat, 20 Oct 2001 03:10:58 -0700 (PDT)    
         // Expression about was verified at http://regex101.com/r/rC1pR9
@@ -95,12 +90,7 @@ namespace mm {
 
         boost::regex date_rgx(reg_exp);
         boost::sregex_iterator it(date_str.begin(), date_str.end(), date_rgx);
-        
-        /*for(int i=0; i < 7; i++){
-            std::string s;
-            s = (*it)[i];
-        }*/
-        
+
         date_parsed_data["week_day"] = (*it)[1].str();
 
         date_parsed_data["month_day"] = (*it)[2].str().size() == 1 ?
@@ -123,7 +113,7 @@ namespace mm {
                 << date_parsed_data["hour"] << ":"
                 << date_parsed_data["minute"] << ":"
                 << date_parsed_data["second"];
-                  
+
         try {
             date = bpt::ptime(bpt::time_from_string(sstr.str()));
         } catch (std::exception& e) {
@@ -216,10 +206,16 @@ namespace mm {
                 } else {
                     // '+2' to jump a colon and a space after fields name
                     size_t pos_end_field_value = rawData.find("\n", pos_field + field.size() + 2);
-
-                    emailFields[field](std::string(
+                    std::string rawField = std::string(
                             rawData.begin() + pos_field + field.size() + 2,
-                            rawData.begin() + pos_end_field_value));
+                            rawData.begin() + pos_end_field_value);
+
+                    size_t posr = rawField.find("\r");
+                    if (posr != std::string::npos) {
+                        rawField.erase(posr, 1);
+                    }
+
+                    emailFields[field](rawField);
                 }
             }
         } else {
@@ -229,28 +225,33 @@ namespace mm {
         }
     }
 
-    const std::string Mail::toJSON() const{
+    const std::string Mail::toJSON() const {
         namespace bptree = boost::property_tree;
-        
+
         bptree::ptree pt;
         pt.put("from", getFrom());
-        for(auto& t: getTo()){
-         pt.put("to", t);   
+
+        const std::vector<std::string>& vec = getTo();
+        if (vec.size() > 1) {
+            std::cout << "HERE";
+        }
+        for (auto& t : getTo()) {
+            pt.put("to", t);
         }
         pt.put("subject", getSubject());
         pt.put("messageID", getMessageID());
         pt.put("date", getISODate());
-        
-        std::stringstream sstr;       
+
+        std::stringstream sstr;
         bptree::write_json(sstr, pt, false);
-        
+
         return std::move(sstr.str());
     }
 
-     const std::string Mail::getISODate() const{
-         bpt::ptime p = getDate();
-         return std::move(bpt::to_iso_extended_string(p));
-     }
-        
-    
+    const std::string Mail::getISODate() const {
+        bpt::ptime p = getDate();
+        return std::move(bpt::to_iso_extended_string(p));
+    }
+
+
 };

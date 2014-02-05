@@ -95,35 +95,35 @@ namespace mm {
 
         boost::regex date_rgx(reg_exp);
         boost::sregex_iterator it(date_str.begin(), date_str.end(), date_rgx);
+        
+        /*for(int i=0; i < 7; i++){
+            std::string s;
+            s = (*it)[i];
+        }*/
+        
+        date_parsed_data["week_day"] = (*it)[1].str();
 
-        date_parsed_data["week_day"] = (*it)[0].str();
+        date_parsed_data["month_day"] = (*it)[2].str().size() == 1 ?
+                std::string("0") + (*it)[2].str() :
+                (*it)[2].str();
 
-        date_parsed_data["month_day"] = (*it)[1].str().size() == 1 ?
-                std::string("0") + (*it)[1].str() :
-                (*it)[1].str();
+        date_parsed_data["month"] = months[ (*it)[3].str() ];
 
-        date_parsed_data["month"] = months[ (*it)[2].str() ];
+        date_parsed_data["year"] = (*it)[4].str();
 
-        date_parsed_data["year"] = (*it)[3].str();
+        date_parsed_data["hour"] = (*it)[5].str();
+        date_parsed_data["minute"] = (*it)[6].str();
+        date_parsed_data["second"] = (*it)[7].str();
+        date_parsed_data["time_zone"] = (*it)[8].str();
 
-        date_parsed_data["hour"] = (*it)[4].str();
-        date_parsed_data["minute"] = (*it)[5].str();
-        date_parsed_data["second"] = (*it)[6].str();
-        date_parsed_data["time_zone"] = (*it)[7].str();
-
-        const std::locale format = std::locale(std::locale::classic(),
-                new bpt::time_input_facet("%04Y-%02m-%02d %H:%M:%S"));
-
-
-        std::stringstream sstr;
+        std::stringstream sstr("");
         sstr << date_parsed_data["year"] << "-"
                 << date_parsed_data["month"] << "-"
                 << date_parsed_data["month_day"] << " "
                 << date_parsed_data["hour"] << ":"
                 << date_parsed_data["minute"] << ":"
                 << date_parsed_data["second"];
-        sstr.imbue(format);
-
+                  
         try {
             date = bpt::ptime(bpt::time_from_string(sstr.str()));
         } catch (std::exception& e) {

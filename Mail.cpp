@@ -231,13 +231,13 @@ namespace mm {
         bptree::ptree pt;
         pt.put("from", getFrom());
 
-        const std::vector<std::string>& vec = getTo();
-        if (vec.size() > 1) {
-            std::cout << "HERE";
+        bptree::ptree to;
+        for (auto& email_to : getTo()) {
+            bptree::ptree to_item;
+            to_item.put("", email_to);
+            to.push_back(std::make_pair("", to_item));
         }
-        for (auto& t : getTo()) {
-            pt.put("to", t);
-        }
+        pt.add_child("to", to);
         pt.put("subject", getSubject());
         pt.put("messageID", getMessageID());
         pt.put("date", getISODate());

@@ -26,6 +26,9 @@ namespace mm {
         const std::string& getMessageID() const;
         const std::string toJSON() const;
         const std::string getISODate() const;
+    
+        static bool validateMailAddr(const std::string& mail);
+   
     private:
         std::string messageID;
         std::string from;
@@ -53,7 +56,6 @@ namespace mm {
 
         void loadMailRawdata(const std::string& fileLoc);
         void parseMailData();
-       
     };
 };
 #endif	/* MAIL_H */

@@ -225,6 +225,14 @@ namespace mm {
         }
     }
 
+    bool Mail::validateMailAddr(const std::string& mail){
+        // Got the regex at http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address
+        static const boost::regex mail_rgx("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
+        boost::smatch m;
+        bool res = boost::regex_match(mail, m, mail_rgx);
+        return res;
+    }
+    
     const std::string Mail::toJSON() const {
         namespace bptree = boost::property_tree;
 

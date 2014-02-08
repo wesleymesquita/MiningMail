@@ -103,6 +103,7 @@ Heather)";
     const char* original_data_test_Mail_file = R"(/home/wesley/projects/MiningMail/1)";
 
     class test_Mail {
+        friend class Mail;
     private:
         const Mail mail;
 
@@ -172,9 +173,42 @@ Heather)";
 
             std::cout << mail.toJSON() << std::endl;
 
-            
             return true;
         }
+
+        bool test_validateMail() {
+            const std::vector<std::string> mails = {
+                "a@b.d.f.g.g",
+                "a@b.com",
+                "a@b",
+                "a@",
+                "",
+                "a@b.foo..com.br",
+                "a@b#foo.com.br"
+            };
+            const std::vector<bool> expected_resp = {
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            };
+
+            std::vector<bool> resp;
+            resp.reserve(expected_resp.size());
+            
+            std::for_each(mails.begin(), mails.end(),
+                    [&](const std::string& email_addr) {
+                        resp.push_back(Mail::validateMailAddr(email_addr));
+                    }
+            );
+
+            bool res = std::equal(resp.begin(), resp.end(), expected_resp.begin());
+            return res;
+        }
+
     public:
 
         test_Mail() :
@@ -202,8 +236,10 @@ Heather)";
                     }},
                 { [&]()->bool {
                         return tester.test_toJSON();
-                    }}
-
+                    }},
+                 { [&]()->bool {
+                        return tester.test_validateMail();
+                    }}   
             };
 
             std::vector<bool> result;

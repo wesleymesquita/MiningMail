@@ -51,11 +51,21 @@ namespace mm {
     void Mail::setTo(const std::string& to_str) {
         std::vector<std::string> res;
         boost::split(res, to_str, boost::is_any_of(","));
+
+        //remove extra space (probably parsing errors)
         std::for_each(res.begin(), res.end(),
-                [&](std::string & str) {
-                    std::remove_if(str.begin(), str.end(), [](char c) {
+                [&](std::string& mail) {
+                    auto new_mail_end = std::remove_if(mail.begin(), mail.end(), [](char c) {
                         return std::isspace(c); });
+                    mail.erase(new_mail_end, mail.end());    
                 });
+        // remove any invalid email address        
+        auto new_res_end = std::remove_if(res.begin(), res.end(),
+                [&](const std::string & email) {
+                    return Mail::validateMailAddr(email) == false;
+                });
+        res.erase(new_res_end, res.end());         
+
         this->to = std::move(res);
     }
 
@@ -225,14 +235,14 @@ namespace mm {
         }
     }
 
-    bool Mail::validateMailAddr(const std::string& mail){
+    bool Mail::validateMailAddr(const std::string& mail) {
         // Got the regex at http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address
         static const boost::regex mail_rgx("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
         boost::smatch m;
         bool res = boost::regex_match(mail, m, mail_rgx);
         return res;
     }
-    
+
     const std::string Mail::toJSON() const {
         namespace bptree = boost::property_tree;
 

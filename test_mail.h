@@ -183,6 +183,7 @@ Heather)";
                 "a@b",
                 "a@",
                 "",
+                " "
                 "a@b.foo..com.br",
                 "a@b#foo.com.br"
             };
@@ -190,6 +191,7 @@ Heather)";
                 true,
                 true,
                 true,
+                false,
                 false,
                 false,
                 false,

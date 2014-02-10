@@ -42,7 +42,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/MailStorageTest.o \
 	${OBJECTDIR}/Tester.o \
 	${OBJECTDIR}/UserMailDataset.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/tests/test_Mail.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -128,20 +129,19 @@ ${OBJECTDIR}/main.o: main.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
+${OBJECTDIR}/tests/test_Mail.o: tests/test_Mail.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_Mail.o tests/test_Mail.cpp
+
 # Subprojects
 .build-subprojects:
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/test_Mail.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
-
-
-${TESTDIR}/tests/test_Mail.o: tests/test_Mail.cpp 
-	${MKDIR} -p ${TESTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/test_Mail.o tests/test_Mail.cpp
 
 
 ${OBJECTDIR}/ConfigManager_nomain.o: ${OBJECTDIR}/ConfigManager.o ConfigManager.cpp 
@@ -259,6 +259,19 @@ ${OBJECTDIR}/main_nomain.o: ${OBJECTDIR}/main.o main.cpp
 	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_nomain.o main.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main.o ${OBJECTDIR}/main_nomain.o;\
+	fi
+
+${OBJECTDIR}/tests/test_Mail_nomain.o: ${OBJECTDIR}/tests/test_Mail.o tests/test_Mail.cpp 
+	${MKDIR} -p ${OBJECTDIR}/tests
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/tests/test_Mail.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -I../../Downloads/boost_1_55_0 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests/test_Mail_nomain.o tests/test_Mail.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/tests/test_Mail.o ${OBJECTDIR}/tests/test_Mail_nomain.o;\
 	fi
 
 # Run Test Targets

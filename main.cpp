@@ -8,12 +8,11 @@
 
 #include "MailStorageTest.h"
 
-#include "test_mail.h"
-
 #include "Logger.h"
 #include "UserMailDataset.h"
 #include "ConfigManager.h"
 
+#include "test_mail.h"
 
 int main(int argc, char** argv) {
     
@@ -24,10 +23,11 @@ int main(int argc, char** argv) {
 
     LOG_MESSAGE("main", "Init basic parse test: ");
 
-    bool test_Mail_res = test_mining_mail::test_Mail::test();
-
+    mm::test_Mail testMail;    
+    testMail.execTest();
+    std::cout << testMail.getDetailResult();
+    
     std::stringstream sstr("");
-    sstr << "Mail_tests == " << test_Mail_res << std::endl;
     
     mm::UserMailDataset dataset;
     dataset.loadFromLocalPath(

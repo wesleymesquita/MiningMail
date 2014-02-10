@@ -1,5 +1,5 @@
 /* 
- * File:   EnronMail.h
+ * File:   Mail.h
  * Author: Wesley Mesquita
  * Email: wesleymesquita@gmail.com     
  * Created on December 26, 2013, 9:15 PM
